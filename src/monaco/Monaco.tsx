@@ -5,7 +5,7 @@ import {editor} from "monaco-editor";
 //import {handleDrafts} from "../App";
 
 interface MonacoProps {
-  data: string | undefined;
+  data: string;
   onChange: (value: string | undefined) => void;
 }
 
