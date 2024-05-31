@@ -1,34 +1,23 @@
 import {SortableContext, verticalListSortingStrategy, arrayMove} from "@dnd-kit/sortable";
 import {DndContext, DragEndEvent, closestCenter} from "@dnd-kit/core";
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
-import {Dispatch, SetStateAction} from "react";
 
-import {type SectionProps} from "../types";
+import {useSectionStore} from "../store";
 
 import {Section} from "./Section";
 
-interface SectionsProps {
-  sectionsData: SectionProps[];
-  //setCurrentDataIndex: (idx: number) => void;
-  setCurrentSection: Dispatch<SetStateAction<SectionProps>>;
-  setSectionsData: Dispatch<SetStateAction<SectionProps[]>>;
-}
+const Sections = () => {
+  const {sections, setSectionsData} = useSectionStore();
 
-const Sections = ({sectionsData, setSectionsData, setCurrentSection}: SectionsProps) => {
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event;
 
-    // console.log("active", active.id);
-    // console.log("over", over.id);
-    const oldIndex = sectionsData.findIndex((section) => section.id === active.id);
-    const newIndex = sectionsData.findIndex((section) => section.id === over?.id);
+    const oldIndex = sections.findIndex((section) => section.id === active.id);
+    const newIndex = sections.findIndex((section) => section.id === over?.id);
 
-    // console.log(oldIndex);
-    // console.log(newIndex);
-    const newOrder = arrayMove(sectionsData, oldIndex, newIndex);
+    const newOrder = arrayMove(sections, oldIndex, newIndex);
 
     setSectionsData(newOrder);
-    //setCurrentDataIndex(newIndex);
   };
 
   return (
@@ -45,16 +34,9 @@ const Sections = ({sectionsData, setSectionsData, setCurrentSection}: SectionsPr
         onDragEnd={handleDragEnd}
       >
         <ul className="flex flex-col gap-2 ">
-          <SortableContext items={sectionsData} strategy={verticalListSortingStrategy}>
-            {sectionsData?.map((item, idx) => {
-              return (
-                <Section
-                  key={item.id}
-                  idx={idx}
-                  item={item}
-                  setCurrentSection={setCurrentSection}
-                />
-              );
+          <SortableContext items={sections} strategy={verticalListSortingStrategy}>
+            {sections?.map((item, idx) => {
+              return <Section key={item.id} idx={idx} item={item} />;
             })}
           </SortableContext>
         </ul>

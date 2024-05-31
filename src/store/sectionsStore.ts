@@ -7,22 +7,14 @@ interface SectionsStore {
   sections: SectionProps[];
   currentSection: SectionProps;
   setCurrentSection: (prevSection: SectionProps) => void;
+  setSectionsData: (prevSections: SectionProps[]) => void;
   updateSection: (value: string) => void;
 }
-
-// function updateSection(value: string | undefined) {
-//   if (value !== undefined) {
-//     const updatedData: SectionProps[] = sectionsData.map((section) =>
-//       section.id === currentSection.id ? {...section, content: value} : section,
-//     );
-
-//     setSectionsData(updatedData);
-//   }
-// }
 
 export const useSectionStore = create<SectionsStore>((set) => ({
   sections: sectionsData,
   currentSection: sectionsData[0],
+  setSectionsData: (newSectionsData) => set(() => ({sections: newSectionsData})),
   setCurrentSection: (newCurrentSection) => set(() => ({currentSection: newCurrentSection})),
   updateSection: (value) =>
     set((state) => ({

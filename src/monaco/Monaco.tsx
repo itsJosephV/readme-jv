@@ -2,12 +2,7 @@
 import MonacoEditor from "@monaco-editor/react";
 import {editor} from "monaco-editor";
 
-//import {handleDrafts} from "../App";
-
-interface MonacoProps {
-  data: string;
-  onChange: (value: string | undefined) => void;
-}
+import {useSectionStore} from "../store";
 
 const options: editor.IStandaloneEditorConstructionOptions = {
   readOnly: false,
@@ -20,14 +15,16 @@ const options: editor.IStandaloneEditorConstructionOptions = {
   automaticLayout: true,
 };
 
-const MonacoComponent = ({data, onChange}: MonacoProps) => {
+const MonacoComponent = () => {
+  const {currentSection, updateSection} = useSectionStore();
+
   return (
     <MonacoEditor
       className="rounded-sm border border-stone-100/20"
       options={options}
       theme="vs-dark"
-      value={data}
-      onChange={onChange}
+      value={currentSection.content}
+      onChange={(value: string | undefined) => updateSection(value || "")}
       defaultLanguage="markdown"
     />
   );

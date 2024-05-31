@@ -1,18 +1,18 @@
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
-import {Dispatch, SetStateAction} from "react";
 
 import {type SectionProps as SectionPropsT} from "../types";
 import {DragIcon} from "../icons/DragIcon";
+import {useSectionStore} from "../store";
 
 interface SectionProps {
-  setCurrentSection: Dispatch<SetStateAction<SectionPropsT>>;
   item: SectionPropsT;
   idx: number;
 }
 
-export const Section = ({setCurrentSection, item, idx}: SectionProps) => {
+export const Section = ({item, idx}: SectionProps) => {
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: item.id});
+  const {setCurrentSection} = useSectionStore();
 
   const style = {
     transition,
