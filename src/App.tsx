@@ -59,7 +59,11 @@ function App() {
       <header className="text-xl font-bold capitalize leading-[4rem]">readme-jv</header>
       <div className="flex gap-3">
         <div className="flex-0 flex flex-col gap-2 rounded-md border border-stone-100/20 p-3">
-          <Sections sectionsData={sectionsData} setCurrentDataIndex={setCurrentDataIndex} />
+          <Sections
+            sectionsData={sectionsData}
+            setCurrentDataIndex={setCurrentDataIndex}
+            setSectionsData={setSectionsData}
+          />
         </div>
         <div className="flex flex-1 gap-3">
           <div className="w-1/2 ">
