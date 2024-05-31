@@ -1,1 +1,1 @@
-export * from "./draftData";
+export * from "./sectionsData";

@@ -3,17 +3,18 @@ import {DndContext, DragEndEvent, closestCenter} from "@dnd-kit/core";
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
 import {Dispatch, SetStateAction} from "react";
 
-import {DraftItemsProps} from "../App";
+import {type SectionProps} from "../types";
 
 import {Section} from "./Section";
 
 interface SectionsProps {
-  sectionsData: DraftItemsProps[];
-  setCurrentDataIndex: (idx: number) => void;
-  setSectionsData: Dispatch<SetStateAction<DraftItemsProps[]>>;
+  sectionsData: SectionProps[];
+  //setCurrentDataIndex: (idx: number) => void;
+  setCurrentSection: Dispatch<SetStateAction<SectionProps>>;
+  setSectionsData: Dispatch<SetStateAction<SectionProps[]>>;
 }
 
-const Sections = ({sectionsData, setCurrentDataIndex, setSectionsData}: SectionsProps) => {
+const Sections = ({sectionsData, setSectionsData, setCurrentSection}: SectionsProps) => {
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event;
 
@@ -27,6 +28,7 @@ const Sections = ({sectionsData, setCurrentDataIndex, setSectionsData}: Sections
     const newOrder = arrayMove(sectionsData, oldIndex, newIndex);
 
     setSectionsData(newOrder);
+    //setCurrentDataIndex(newIndex);
   };
 
   return (
@@ -50,7 +52,7 @@ const Sections = ({sectionsData, setCurrentDataIndex, setSectionsData}: Sections
                   key={item.id}
                   idx={idx}
                   item={item}
-                  setCurrentDataIndex={setCurrentDataIndex}
+                  setCurrentSection={setCurrentSection}
                 />
               );
             })}

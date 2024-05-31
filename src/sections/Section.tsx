@@ -1,15 +1,17 @@
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
+import {Dispatch, SetStateAction} from "react";
 
-import {DraftItemsProps} from "../App";
+import {type SectionProps as SectionPropsT} from "../types";
+import {DragIcon} from "../icons/DragIcon";
 
 interface SectionProps {
-  setCurrentDataIndex: (idx: number) => void;
-  item: DraftItemsProps;
+  setCurrentSection: Dispatch<SetStateAction<SectionPropsT>>;
+  item: SectionPropsT;
   idx: number;
 }
 
-export const Section = ({setCurrentDataIndex, item, idx}: SectionProps) => {
+export const Section = ({setCurrentSection, item, idx}: SectionProps) => {
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: item.id});
 
   const style = {
@@ -20,18 +22,20 @@ export const Section = ({setCurrentDataIndex, item, idx}: SectionProps) => {
   return (
     <li
       ref={setNodeRef}
-      className="flex w-full max-w-72 rounded-md bg-stone-800 px-3 py-2  transition-colors hover:bg-stone-600"
+      className="flex w-full max-w-72 rounded-md bg-stone-800 p-2 transition-colors hover:bg-stone-600"
       role="button"
       style={style}
       onClick={() => {
         console.log(idx);
-        setCurrentDataIndex(idx);
+        setCurrentSection(item);
       }}
     >
-      <div className="flex flex-1 gap-2">
-        <i {...attributes} {...listeners} className="border px-0.5">
-          d
-        </i>
+      <div className="flex flex-1 items-center gap-2">
+        <DragIcon
+          className="size-5 text-stone-500 transition-colors hover:text-stone-300"
+          {...attributes}
+          {...listeners}
+        />
         <p className="">{item.title}</p>
       </div>
       <div className="flex gap-2">

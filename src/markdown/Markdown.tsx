@@ -2,11 +2,11 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import "github-markdown-css";
-import {DraftItemsProps} from "../App";
+import {type SectionProps} from "../types";
 import {handleDrafts} from "../utils";
 
 interface MarkdownProps {
-  data: DraftItemsProps[];
+  data: SectionProps[];
 }
 
 const MarkdownComponent = ({data}: MarkdownProps) => {
