@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+* {
+  min-width: 0;
+}
+
 :root {
   background-color: black;
   color: white;

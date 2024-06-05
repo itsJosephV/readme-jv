@@ -16,9 +16,9 @@ const options: editor.IStandaloneEditorConstructionOptions = {
 };
 
 const MonacoComponent = () => {
-  const {currentSection, updateSection} = useSectionStore();
+  const {sections, currentSection, updateSection} = useSectionStore();
 
-  return (
+  return currentSection.content !== "" || sections.length > 0 ? (
     <MonacoEditor
       className="rounded-sm border border-stone-100/20"
       options={options}
@@ -27,6 +27,8 @@ const MonacoComponent = () => {
       onChange={(value: string | undefined) => updateSection(value || "")}
       defaultLanguage="markdown"
     />
+  ) : (
+    "Select a section"
   );
 };
 
