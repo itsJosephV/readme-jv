@@ -4,7 +4,6 @@ import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
 import {useState} from "react";
 
 import {useSectionStore} from "../store";
-import {sectionsData} from "../data";
 import {SectionProps} from "../types";
 
 import {Section} from "./Section";
@@ -16,7 +15,7 @@ enum CurrentSection {
 
 const Sections = () => {
   const [sectionShift, setSetctionShift] = useState<CurrentSection>(CurrentSection.MY_SECTIONS);
-  const {sections, setSectionsData} = useSectionStore();
+  const {sections, setSectionsData, initialSections} = useSectionStore();
 
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event;
@@ -45,7 +44,7 @@ const Sections = () => {
     ),
     [CurrentSection.OPTIONS_SECTIONS]: (
       <ul className="flex flex-col gap-2 ">
-        {sectionsData?.map((item) => <OptionSection key={item.id} item={item} />)}
+        {initialSections?.map((item) => <OptionSection key={item.id} item={item} />)}
       </ul>
     ),
   };
@@ -61,7 +60,10 @@ const Sections = () => {
         </button>
         <button
           className="w-full rounded-md bg-stone-500 p-1"
-          onClick={() => setSetctionShift(CurrentSection.OPTIONS_SECTIONS)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setSetctionShift(CurrentSection.OPTIONS_SECTIONS);
+          }}
         >
           Add New
         </button>

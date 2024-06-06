@@ -2,14 +2,17 @@ import {create} from "zustand";
 import {persist} from "zustand/middleware";
 
 import {type SectionProps} from "../types";
+import {sectionsData} from "../data";
 
 interface SectionsStore {
+  initialSections: SectionProps[];
   sections: SectionProps[];
   currentSection: SectionProps;
   setCurrentSection: (prevSection: SectionProps) => void;
   setSectionsData: (prevSections: SectionProps[]) => void;
   updateSection: (value: string) => void;
   deleteSection: (id: string) => void;
+  resetSection: (title: string, id: string) => void;
 }
 
 const mySections: SectionProps[] = [{id: "1", title: "H1", content: "# Title"}];
@@ -18,6 +21,7 @@ export const useSectionStore = create<SectionsStore>()(
   persist(
     (set) => ({
       sections: mySections,
+      initialSections: sectionsData,
       currentSection: mySections[0],
       setSectionsData: (newSectionsData) => set(() => ({sections: newSectionsData})),
       setCurrentSection: (newCurrentSection) => set(() => ({currentSection: newCurrentSection})),
@@ -32,9 +36,27 @@ export const useSectionStore = create<SectionsStore>()(
         set((prev) => ({
           sections: prev.sections.filter((section) => section.id !== id),
         })),
+      resetSection: (title, id) =>
+        set((state) => {
+          const initialSectionContent = state.initialSections.find(
+            (section) => section.title === title,
+          )?.content;
+
+          if (initialSectionContent) {
+            return {
+              sections: state.sections.map((section) =>
+                section.id === id ? {...section, content: initialSectionContent} : section,
+              ),
+              currentSection:
+                state.currentSection.id === id
+                  ? {...state.currentSection, content: initialSectionContent}
+                  : state.currentSection,
+            };
+          }
+
+          return state;
+        }),
     }),
     {name: "sections-store"},
   ),
 );
-
-// {"state":{"sections":[],"currentSection":{"id":"6e8daa32-9808-4e75-9d4e-2b0d33b05df8","title":"H3","content":"### Subheading"}},"version":0}
