@@ -4,8 +4,7 @@ import {useState} from "react";
 import {MarkdownComponent as Markdown} from "./markdown";
 import {MonacoComponent as Monaco} from "./monaco";
 import Sections from "./sections/Sections";
-import {createGutterElement} from "./utils/createGutterElement";
-import {handleSnapCenter} from "./utils/handleSnapCenter";
+import {createGutterElement, handleSnapCenter} from "./utils";
 
 function App() {
   const [sizes, setSizes] = useState([50, 50]);
