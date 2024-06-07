@@ -21,6 +21,7 @@
 
   &:hover {
     background-color: #404040;
-    /* cursor: col-resize; */
+    cursor: col-resize;
   }
 }
+

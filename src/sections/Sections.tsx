@@ -62,13 +62,13 @@ const Sections = () => {
     <>
       <div className="flex justify-between gap-2">
         <button
-          className="w-full rounded-md bg-stone-500 p-1"
+          className="w-full rounded-sm bg-stone-500 p-1"
           onClick={() => setSetctionShift(CurrentSection.MY_SECTIONS)}
         >
           My Sections
         </button>
         <button
-          className="w-full rounded-md bg-stone-500 p-1"
+          className="w-full rounded-sm bg-stone-500 p-1"
           onClick={(e) => {
             e.stopPropagation();
             setSetctionShift(CurrentSection.OPTIONS_SECTIONS);
@@ -101,7 +101,7 @@ const OptionSection = ({item}: {item: SectionProps}) => {
 
   return (
     <li
-      className="flex w-full max-w-72 rounded-md bg-stone-800 p-2 transition-colors hover:bg-stone-600"
+      className="flex w-full max-w-72 rounded-sm bg-stone-800 p-2 transition-colors hover:bg-stone-600"
       role="button"
       onClick={() => {
         handleAddSection();

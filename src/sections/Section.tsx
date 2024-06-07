@@ -37,7 +37,7 @@ export const Section = ({item, isFocused, setFocusedSection}: Props) => {
     //TODO: DO NOT USE THE LI AS A WRAPPER?
     <li
       ref={setNodeRef}
-      className="flex w-full max-w-72 rounded-md bg-stone-800 p-2 transition-colors hover:bg-stone-700"
+      className="flex w-full max-w-72 rounded-sm bg-stone-800 p-2 transition-colors hover:bg-stone-700"
       role="button"
       style={style}
       tabIndex={0}
@@ -54,7 +54,7 @@ export const Section = ({item, isFocused, setFocusedSection}: Props) => {
       {isFocused && (
         <div className="flex gap-2">
           <button
-            className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
+            className="cursor-pointer rounded-sm bg-stone-600 p-1 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               handleResetButton();
@@ -63,7 +63,7 @@ export const Section = ({item, isFocused, setFocusedSection}: Props) => {
             <ResetIcon />
           </button>
           <button
-            className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
+            className="cursor-pointer rounded-sm bg-stone-600 p-1 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               deleteSection(item.id);

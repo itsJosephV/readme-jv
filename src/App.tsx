@@ -1,4 +1,4 @@
-import Split from "react-split";
+import Split, {SplitProps} from "react-split";
 import {useState} from "react";
 
 import {MarkdownComponent as Markdown} from "./markdown";
@@ -18,7 +18,7 @@ function App() {
   .split-panel-snapping-dots::after {
     content: '';
     position: absolute;
-    top: -10px;
+    bottom: -12px;
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -30,6 +30,19 @@ function App() {
     left: 50%;
   }`;
 
+  const splitProps: SplitProps = {
+    cursor: "col-resize",
+    direction: "horizontal",
+    expandToMin: true,
+    gutter: (_, direction) => createGutterElement(direction),
+    gutterAlign: "center",
+    gutterSize: 12,
+    minSize: 100,
+    sizes: sizes,
+    onDrag: (sizes) => setSizes(sizes),
+    onDragEnd: (sizes) => handleSnapCenter({sizes, snapThresHold, setSizes}),
+  };
+
   return (
     <>
       <main className="grid h-screen grid-rows-[auto,1fr] px-5 pb-5">
@@ -40,19 +53,7 @@ function App() {
           </aside>
 
           <section className="split-panel-snapping">
-            <Split
-              className="flex h-full"
-              cursor="col-resize"
-              direction="horizontal"
-              expandToMin={true}
-              gutter={(_, direction) => createGutterElement(direction)}
-              gutterAlign="center"
-              gutterSize={12}
-              minSize={100}
-              sizes={sizes}
-              onDrag={(sizes) => setSizes(sizes)}
-              onDragEnd={(sizes) => handleSnapCenter({sizes, snapThresHold, setSizes})}
-            >
+            <Split {...splitProps} className="flex h-full border border-stone-100/20">
               <Monaco />
               <Markdown />
             </Split>
@@ -66,3 +67,15 @@ function App() {
 }
 
 export default App;
+
+// className="flex h-full"
+// cursor="col-resize"
+// direction="horizontal"
+// expandToMin={true}
+// gutter={(_, direction) => createGutterElement(direction)}
+// gutterAlign="center"
+// gutterSize={12}
+// minSize={100}
+// sizes={sizes}
+// onDrag={(sizes) => setSizes(sizes)}
+// onDragEnd={(sizes) => handleSnapCenter({sizes, snapThresHold, setSizes})}
