@@ -15,11 +15,13 @@ enum CurrentSection {
 
 const Sections = () => {
   const [sectionShift, setSetctionShift] = useState<CurrentSection>(CurrentSection.MY_SECTIONS);
+  const [focusedSection, setFocusedSection] = useState<string | null>(null);
   const {sections, setSectionsData, initialSections} = useSectionStore();
 
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event;
 
+    if (!over) return;
     const oldIndex = sections.findIndex((section) => section.id === active.id);
     const newIndex = sections.findIndex((section) => section.id === over?.id);
 
@@ -37,7 +39,14 @@ const Sections = () => {
       >
         <ul className="flex flex-col gap-2 ">
           <SortableContext items={sections} strategy={verticalListSortingStrategy}>
-            {sections?.map((item) => <Section key={item.id} item={item} />)}
+            {sections?.map((item) => (
+              <Section
+                key={item.id}
+                isFocused={focusedSection === item.id}
+                item={item}
+                setFocusedSection={setFocusedSection}
+              />
+            ))}
           </SortableContext>
         </ul>
       </DndContext>

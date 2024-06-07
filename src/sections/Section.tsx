@@ -1,14 +1,18 @@
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
-import {useState} from "react";
 
 import {type SectionProps} from "../types";
 import {useSectionStore} from "../store";
 import {DragIcon, ResetIcon} from "../icons";
 import {TrashIcon} from "../icons";
 
-export const Section = ({item}: {item: SectionProps}) => {
-  const [isFocused, setIsFocused] = useState(false);
+interface Props {
+  item: SectionProps;
+  isFocused: boolean;
+  setFocusedSection: (id: string | null) => void;
+}
+
+export const Section = ({item, isFocused, setFocusedSection}: Props) => {
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: item.id});
   const {setCurrentSection, deleteSection, resetSection} = useSectionStore();
 
@@ -17,31 +21,27 @@ export const Section = ({item}: {item: SectionProps}) => {
     transition,
   };
 
-  console.log(item.id);
+  //console.log(item.id);
 
   const handleResetButton = () => {
     //TODO: ADD SOME VERIFICATION BEFORE RESETTING 👁️
     resetSection(item.title, item.id);
   };
 
-  //TODO: IMPROVE THESE TWO
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
+  const handleSectionClick = () => {
+    setFocusedSection(item.id);
+    setCurrentSection(item);
+  };
 
   return (
     //TODO: DO NOT USE THE LI AS A WRAPPER?
     <li
       ref={setNodeRef}
-      className="flex w-full max-w-72 rounded-md bg-stone-800 p-2 transition-colors hover:bg-stone-600"
+      className="flex w-full max-w-72 rounded-md bg-stone-800 p-2 transition-colors hover:bg-stone-700"
       role="button"
       style={style}
       tabIndex={0}
-      onBlur={handleBlur}
-      onClick={() => {
-        setCurrentSection(item);
-        console.log("clicked");
-      }}
-      onFocus={handleFocus}
+      onClick={handleSectionClick}
     >
       <div className="flex flex-1 items-center gap-2">
         <DragIcon
@@ -54,7 +54,7 @@ export const Section = ({item}: {item: SectionProps}) => {
       {isFocused && (
         <div className="flex gap-2">
           <button
-            className=""
+            className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               handleResetButton();
@@ -63,10 +63,12 @@ export const Section = ({item}: {item: SectionProps}) => {
             <ResetIcon />
           </button>
           <button
+            className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               deleteSection(item.id);
               setCurrentSection({id: "", title: "", content: ""});
+              //console.log("elem clicked");
             }}
           >
             <TrashIcon />
