@@ -1,10 +1,10 @@
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 
-import {type SectionProps} from "../types";
-import {useSectionStore} from "../store";
-import {DragIcon, ResetIcon} from "../icons";
-import {TrashIcon} from "../icons";
+import {type SectionProps} from "../../types";
+import {useSectionStore} from "../../store";
+import {DragIcon, ResetIcon} from "../../icons";
+import {TrashIcon} from "../../icons";
 
 interface Props {
   item: SectionProps;
@@ -37,7 +37,7 @@ export const Section = ({item, isFocused, setFocusedSection}: Props) => {
     //TODO: DO NOT USE THE LI AS A WRAPPER?
     <li
       ref={setNodeRef}
-      className="flex w-full max-w-72 rounded-sm bg-stone-800 p-2 transition-colors hover:bg-stone-700"
+      className="flex w-full rounded-sm bg-stone-800 px-2 py-2.5 transition-colors hover:bg-stone-700"
       role="button"
       style={style}
       tabIndex={0}
@@ -45,7 +45,7 @@ export const Section = ({item, isFocused, setFocusedSection}: Props) => {
     >
       <div className="flex flex-1 items-center gap-2">
         <DragIcon
-          className="size-5 text-stone-500 transition-colors hover:text-stone-300"
+          className="size-6 text-stone-500 transition-colors hover:text-stone-300"
           {...attributes}
           {...listeners}
         />

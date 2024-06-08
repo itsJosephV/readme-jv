@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-sort-props */
 import MonacoEditor from "@monaco-editor/react";
 import {editor} from "monaco-editor";
-import {useEffect} from "react";
 
-import {useSectionStore} from "../store";
+import {useSectionStore} from "../../store";
 
 const options: editor.IStandaloneEditorConstructionOptions = {
   readOnly: false,
@@ -17,11 +16,11 @@ const options: editor.IStandaloneEditorConstructionOptions = {
 };
 
 const MonacoComponent = () => {
-  const {sections, currentSection, updateSection} = useSectionStore();
+  const {currentSection, updateSection} = useSectionStore();
 
   return (
     <MonacoEditor
-      className=""
+      className="h-full overflow-y-auto"
       options={options}
       theme="vs-dark"
       value={currentSection.content}

@@ -3,18 +3,12 @@ import {DndContext, DragEndEvent, closestCenter} from "@dnd-kit/core";
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
 import {useState} from "react";
 
-import {useSectionStore} from "../store";
-import {SectionProps} from "../types";
+import {useSectionStore} from "../../store";
+import {CurrentSection, SectionProps} from "../../types";
 
 import {Section} from "./Section";
 
-enum CurrentSection {
-  MY_SECTIONS = "MY-SECTIONS",
-  OPTIONS_SECTIONS = "OPTIONS-SECTIONS",
-}
-
-const Sections = () => {
-  const [sectionShift, setSetctionShift] = useState<CurrentSection>(CurrentSection.MY_SECTIONS);
+const Sections = ({sectionShift}: {sectionShift: CurrentSection}) => {
   const [focusedSection, setFocusedSection] = useState<string | null>(null);
   const {sections, setSectionsData, initialSections} = useSectionStore();
 
@@ -37,7 +31,7 @@ const Sections = () => {
         modifiers={[restrictToVerticalAxis]}
         onDragEnd={handleDragEnd}
       >
-        <ul className="flex flex-col gap-2 ">
+        <ul className="flex h-full flex-col gap-2">
           <SortableContext items={sections} strategy={verticalListSortingStrategy}>
             {sections?.map((item) => (
               <Section
@@ -52,35 +46,16 @@ const Sections = () => {
       </DndContext>
     ),
     [CurrentSection.OPTIONS_SECTIONS]: (
-      <ul className="flex flex-col gap-2 ">
+      <ul className="flex h-full flex-col gap-2 overflow-y-auto">
         {initialSections?.map((item) => <OptionSection key={item.id} item={item} />)}
       </ul>
     ),
   };
 
   return (
-    <>
-      <div className="flex justify-between gap-2">
-        <button
-          className="w-full rounded-sm bg-stone-500 p-1"
-          onClick={() => setSetctionShift(CurrentSection.MY_SECTIONS)}
-        >
-          My Sections
-        </button>
-        <button
-          className="w-full rounded-sm bg-stone-500 p-1"
-          onClick={(e) => {
-            e.stopPropagation();
-            setSetctionShift(CurrentSection.OPTIONS_SECTIONS);
-          }}
-        >
-          Add New
-        </button>
-      </div>
-
-      <p className="py-2 text-xs">Click on a section below to edit the contents</p>
-      {currentSection[sectionShift]}
-    </>
+    <div className="flex h-full flex-col gap-2 overflow-y-auto rounded-sm border border-stone-100/20 p-3">
+      <div>{currentSection[sectionShift]}</div>
+    </div>
   );
 };
 
@@ -101,7 +76,7 @@ const OptionSection = ({item}: {item: SectionProps}) => {
 
   return (
     <li
-      className="flex w-full max-w-72 rounded-sm bg-stone-800 p-2 transition-colors hover:bg-stone-600"
+      className="flex w-full rounded-sm bg-stone-800 px-2 py-2.5 transition-colors hover:bg-stone-600"
       role="button"
       onClick={() => {
         handleAddSection();
