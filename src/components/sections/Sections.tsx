@@ -4,11 +4,11 @@ import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
 import {useState} from "react";
 
 import {useSectionStore} from "../../store";
-import {CurrentSection, SectionProps} from "../../types";
+import {CurrentSectionView, SectionProps} from "../../types";
 
 import {Section} from "./Section";
 
-const Sections = ({sectionShift}: {sectionShift: CurrentSection}) => {
+const Sections = ({sectionShift}: {sectionShift: CurrentSectionView}) => {
   const [focusedSection, setFocusedSection] = useState<string | null>(null);
   const {sections, setSectionsData, initialSections} = useSectionStore();
 
@@ -24,8 +24,8 @@ const Sections = ({sectionShift}: {sectionShift: CurrentSection}) => {
     setSectionsData(newOrder);
   };
 
-  const currentSection: Record<CurrentSection, JSX.Element> = {
-    [CurrentSection.MY_SECTIONS]: (
+  const currentSection: Record<CurrentSectionView, JSX.Element> = {
+    [CurrentSectionView.MY_SECTIONS]: (
       <DndContext
         collisionDetection={closestCenter}
         modifiers={[restrictToVerticalAxis]}
@@ -45,7 +45,7 @@ const Sections = ({sectionShift}: {sectionShift: CurrentSection}) => {
         </ul>
       </DndContext>
     ),
-    [CurrentSection.OPTIONS_SECTIONS]: (
+    [CurrentSectionView.OPTIONS_SECTIONS]: (
       <ul className="flex h-full flex-col gap-2 overflow-y-auto">
         {initialSections?.map((item) => <OptionSection key={item.id} item={item} />)}
       </ul>
@@ -64,25 +64,41 @@ export default Sections;
 const OptionSection = ({item}: {item: SectionProps}) => {
   const {sections, setSectionsData, setCurrentSection} = useSectionStore();
 
-  const handleAddSection = () => {
+  const handleAddSectionAndCurrent = () => {
     const newSectionWithNewId = {
       ...item,
       id: crypto.randomUUID(),
     };
 
     setSectionsData([...sections, newSectionWithNewId]);
+    setCurrentSection(newSectionWithNewId);
   };
+
+  const findAmount = sections.reduce((acc, curr) => {
+    if (curr.title === item.title) {
+      acc++;
+    }
+
+    return acc;
+  }, 0);
 
   return (
     <li
-      className="flex w-full rounded-sm bg-stone-800 px-2 py-2.5 transition-colors hover:bg-stone-600"
+      className="flex w-full rounded-sm bg-stone-800 px-3 py-2.5 transition-colors hover:bg-stone-600"
       role="button"
       onClick={() => {
-        handleAddSection();
-        setCurrentSection(item);
+        handleAddSectionAndCurrent();
       }}
     >
-      <p className="">{item.title}</p>
+      <p className="flex-1">{item.title}</p>
+      <div className="flex gap-2">
+        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-stone-600 text-xs">
+          {findAmount}
+        </div>
+        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-stone-600 font-serif text-xs font-semibold">
+          i
+        </div>
+      </div>
     </li>
   );
 };

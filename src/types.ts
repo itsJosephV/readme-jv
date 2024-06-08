@@ -4,7 +4,7 @@ export interface SectionProps {
   content: string;
 }
 
-export enum CurrentSection {
+export enum CurrentSectionView {
   MY_SECTIONS = "MY-SECTIONS",
   OPTIONS_SECTIONS = "OPTIONS-SECTIONS",
 }

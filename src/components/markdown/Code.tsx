@@ -1,0 +1,48 @@
+import React from "react";
+import {ExtraProps} from "react-markdown";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import {nightOwl} from "react-syntax-highlighter/dist/esm/styles/hljs";
+
+interface CodeProps {
+  className?: string;
+  children: React.ReactNode;
+}
+
+const Code = ({className, children, ...props}: CodeProps) => {
+  const match = /language-(\w+)/.exec(className || "");
+
+  return match ? (
+    <SyntaxHighlighter
+      {...(props as ExtraProps)}
+      PreTag="div"
+      customStyle={{background: "transparent"}}
+      language={match[1]}
+      style={nightOwl}
+    >
+      {String(children).replace(/\n$/, "")}
+    </SyntaxHighlighter>
+  ) : (
+    // </div>
+    <code className={className} {...props}>
+      {children}
+    </code>
+  );
+};
+
+export default Code;
+
+/**
+ * Copy to clipboard component testing
+ * Not necessary in this case
+ */
+// import {CopyToClipboard} from "react-copy-to-clipboard";
+// import {CopyIcon} from "../../icons/CopyIcon";
+//onCopy={() => this.setState({copied: true})}
+// <div className="relative">
+{
+  /* <CopyToClipboard text={children}>
+        <button className="absolute right-2 top-2 rounded-md bg-stone-800 p-2 opacity-60">
+          <CopyIcon className="size-4" />
+        </button>
+      </CopyToClipboard> */
+}

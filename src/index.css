@@ -8,8 +8,9 @@
 }
 
 :root {
-  background-color: black;
-  color: white;
+  background-color: #0c0a09;
+  color: #fafaf9;
+  --header-height: 68px
 }
 
 .gutter {
@@ -23,5 +24,9 @@
     background-color: #404040;
     cursor: col-resize;
   }
+}
+
+.min-h {
+  min-height: calc(100dvh - var(--header-height));
 }
 

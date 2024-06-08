@@ -4,13 +4,15 @@ import {useState} from "react";
 import {MarkdownComponent as Markdown} from "./components/markdown";
 import {MonacoComponent as Monaco} from "./components/monaco";
 import {createGutterElement, handleSnapCenter} from "./utils";
-import {CurrentSection} from "./types";
-import SectionSwitcher from "./components/sections-switch/SectionSwitcher";
+import {CurrentSectionView} from "./types";
+import SectionsButtons from "./components/sections-buttons/SectionsButtons";
 import Sections from "./components/sections/Sections";
 
 function App() {
   const [sizes, setSizes] = useState([50, 50]);
-  const [sectionShift, setSetctionShift] = useState<CurrentSection>(CurrentSection.MY_SECTIONS);
+  const [sectionShift, setSetctionShift] = useState<CurrentSectionView>(
+    CurrentSectionView.MY_SECTIONS,
+  );
   const snapThresHold = 5;
 
   const dotSnapCss = `
@@ -48,11 +50,23 @@ function App() {
 
   return (
     <>
-      <main className="grid h-screen grid-rows-[auto,1fr]">
-        {/* <header className="text-xl font-bold capitalize leading-[4rem]">readme-jv</header> */}
-        <article className="flex min-h-screen gap-3 p-5">
+      <main className="grid h-full max-h-screen grid-rows-[auto,1fr]">
+        <header className="flex items-center p-5 capitalize">
+          <div className="flex-1 text-xl font-semibold">
+            <i>Readme-js</i>
+          </div>
+          <div className="flex items-center gap-2">
+            <i>LinkOne</i>
+            <i>LinkTwo</i>
+          </div>
+        </header>
+        <article className="min-h flex gap-3 p-5 pt-0">
           <section className="flex w-full max-w-80 flex-col gap-3">
-            <SectionSwitcher setSetctionShift={setSetctionShift} />
+            {/* <div className="flex items-center rounded-sm bg-stone-800 p-2">
+              <p className="flex-1 text-sm text-stone-400">Sections</p>
+              <button className="rounded-sm bg-stone-600 px-2 text-sm text-stone-300">Reset</button>
+            </div> */}
+            <SectionsButtons setSetctionShift={setSetctionShift} />
             <Sections sectionShift={sectionShift} />
           </section>
 

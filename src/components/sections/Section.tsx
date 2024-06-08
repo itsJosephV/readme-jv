@@ -1,10 +1,12 @@
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
+import {useEffect, useRef} from "react";
 
 import {type SectionProps} from "../../types";
 import {useSectionStore} from "../../store";
 import {DragIcon, ResetIcon} from "../../icons";
 import {TrashIcon} from "../../icons";
+import {cn} from "../../utils";
 
 interface Props {
   item: SectionProps;
@@ -13,15 +15,14 @@ interface Props {
 }
 
 export const Section = ({item, isFocused, setFocusedSection}: Props) => {
+  const nodeRef = useRef(null);
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: item.id});
-  const {setCurrentSection, deleteSection, resetSection} = useSectionStore();
+  const {setCurrentSection, currentSection, deleteSection, resetSection} = useSectionStore();
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-
-  //console.log(item.id);
 
   const handleResetButton = () => {
     //TODO: ADD SOME VERIFICATION BEFORE RESETTING 👁️
@@ -29,17 +30,32 @@ export const Section = ({item, isFocused, setFocusedSection}: Props) => {
   };
 
   const handleSectionClick = () => {
+    //TODO: HANDLE REDUNDANT CALLS
     setFocusedSection(item.id);
     setCurrentSection(item);
   };
 
+  useEffect(() => {
+    if (currentSection.id === item.id) {
+      nodeRef.current?.click();
+    }
+  }, [currentSection, item.id]);
+
   return (
     <li
-      ref={setNodeRef}
-      className="flex w-full rounded-sm bg-stone-800 px-2 py-2.5 transition-colors hover:bg-stone-700"
+      ref={(node) => {
+        setNodeRef(node);
+        nodeRef.current = node;
+      }}
+      className={cn(
+        "flex w-full rounded-sm bg-stone-800 py-2.5 pl-2 pr-2.5 transition-colors hover:bg-stone-700",
+        {
+          "ring ring-violet-400/60 focus:ring-1": currentSection.id === item.id,
+        },
+      )}
+      id={item.id}
       role="button"
       style={style}
-      tabIndex={0}
       onClick={handleSectionClick}
     >
       <div className="flex flex-1 items-center gap-2">
