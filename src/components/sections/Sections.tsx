@@ -71,7 +71,6 @@ const OptionSection = ({item}: {item: SectionProps}) => {
     };
 
     setSectionsData([...sections, newSectionWithNewId]);
-    //console.log(sections);
   };
 
   return (

@@ -34,7 +34,6 @@ export const Section = ({item, isFocused, setFocusedSection}: Props) => {
   };
 
   return (
-    //TODO: DO NOT USE THE LI AS A WRAPPER?
     <li
       ref={setNodeRef}
       className="flex w-full rounded-sm bg-stone-800 px-2 py-2.5 transition-colors hover:bg-stone-700"
