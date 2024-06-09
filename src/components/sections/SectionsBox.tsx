@@ -1,16 +1,23 @@
 import {SortableContext, verticalListSortingStrategy, arrayMove} from "@dnd-kit/sortable";
 import {DndContext, DragEndEvent, closestCenter} from "@dnd-kit/core";
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
-import {useState} from "react";
+import {useRef, useState} from "react";
 
 import {useSectionStore} from "../../store";
-import {CurrentSectionView, SectionProps} from "../../types";
+import {CurrentSectionView} from "../../types";
+import useScrollPositions from "../../hooks/useScrollPositions";
 
-import {Section} from "./Section";
+import {MySection} from "./MySection";
+import {OptionSection} from "./OptionSection";
 
-const Sections = ({sectionShift}: {sectionShift: CurrentSectionView}) => {
+const SectionsBox = ({sectionShift}: {sectionShift: CurrentSectionView}) => {
+  const sectionWrapperRef = useRef<React.ElementRef<"div">>(null);
+
   const [focusedSection, setFocusedSection] = useState<string | null>(null);
+
   const {sections, setSectionsData, initialSections} = useSectionStore();
+
+  const scrollPositions = useScrollPositions({sectionShift, sectionWrapperRef});
 
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event;
@@ -31,10 +38,10 @@ const Sections = ({sectionShift}: {sectionShift: CurrentSectionView}) => {
         modifiers={[restrictToVerticalAxis]}
         onDragEnd={handleDragEnd}
       >
-        <ul className="flex h-full flex-col gap-2">
+        <ul className="space-y-3 p-3">
           <SortableContext items={sections} strategy={verticalListSortingStrategy}>
             {sections?.map((item) => (
-              <Section
+              <MySection
                 key={item.id}
                 isFocused={focusedSection === item.id}
                 item={item}
@@ -46,59 +53,22 @@ const Sections = ({sectionShift}: {sectionShift: CurrentSectionView}) => {
       </DndContext>
     ),
     [CurrentSectionView.OPTIONS_SECTIONS]: (
-      <ul className="flex h-full flex-col gap-2 overflow-y-auto">
+      <ul className="space-y-3 p-3">
         {initialSections?.map((item) => <OptionSection key={item.id} item={item} />)}
       </ul>
     ),
   };
 
+  console.log(scrollPositions);
+
   return (
-    <div className="flex h-full flex-col gap-2 overflow-y-auto rounded-sm border border-stone-100/20 p-3">
+    <div
+      ref={sectionWrapperRef}
+      className="h-full overflow-y-auto rounded-sm border border-stone-100/20"
+    >
       <div>{currentSection[sectionShift]}</div>
     </div>
   );
 };
 
-export default Sections;
-
-const OptionSection = ({item}: {item: SectionProps}) => {
-  const {sections, setSectionsData, setCurrentSection} = useSectionStore();
-
-  const handleAddSectionAndCurrent = () => {
-    const newSectionWithNewId = {
-      ...item,
-      id: crypto.randomUUID(),
-    };
-
-    setSectionsData([...sections, newSectionWithNewId]);
-    setCurrentSection(newSectionWithNewId);
-  };
-
-  const findAmount = sections.reduce((acc, curr) => {
-    if (curr.title === item.title) {
-      acc++;
-    }
-
-    return acc;
-  }, 0);
-
-  return (
-    <li
-      className="flex w-full rounded-sm bg-stone-800 px-3 py-2.5 transition-colors hover:bg-stone-600"
-      role="button"
-      onClick={() => {
-        handleAddSectionAndCurrent();
-      }}
-    >
-      <p className="flex-1">{item.title}</p>
-      <div className="flex gap-2">
-        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-stone-600 text-xs">
-          {findAmount}
-        </div>
-        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-stone-600 font-serif text-xs font-semibold">
-          i
-        </div>
-      </div>
-    </li>
-  );
-};
+export default SectionsBox;

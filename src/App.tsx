@@ -6,7 +6,7 @@ import {MonacoComponent as Monaco} from "./components/monaco";
 import {createGutterElement, handleSnapCenter} from "./utils";
 import {CurrentSectionView} from "./types";
 import SectionsButtons from "./components/sections-buttons/SectionsButtons";
-import Sections from "./components/sections/Sections";
+import SectionsBox from "./components/sections/SectionsBox";
 
 function App() {
   const [sizes, setSizes] = useState([50, 50]);
@@ -67,7 +67,7 @@ function App() {
               <button className="rounded-sm bg-stone-600 px-2 text-sm text-stone-300">Reset</button>
             </div> */}
             <SectionsButtons setSetctionShift={setSetctionShift} />
-            <Sections sectionShift={sectionShift} />
+            <SectionsBox sectionShift={sectionShift} />
           </section>
 
           <section className="split-panel-snapping w-full">

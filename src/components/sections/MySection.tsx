@@ -14,8 +14,8 @@ interface Props {
   setFocusedSection: (id: string | null) => void;
 }
 
-export const Section = ({item, isFocused, setFocusedSection}: Props) => {
-  const nodeRef = useRef(null);
+export const MySection = ({item, isFocused, setFocusedSection}: Props) => {
+  const nodeRef = useRef<React.ElementRef<"li"> | null>(null);
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: item.id});
   const {setCurrentSection, currentSection, deleteSection, resetSection} = useSectionStore();
 
@@ -38,8 +38,11 @@ export const Section = ({item, isFocused, setFocusedSection}: Props) => {
   useEffect(() => {
     if (currentSection.id === item.id) {
       nodeRef.current?.click();
+      // nodeRef.current?.scrollIntoView({behavior: "smooth", block: "center"});
     }
-  }, [currentSection, item.id]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <li
@@ -83,7 +86,6 @@ export const Section = ({item, isFocused, setFocusedSection}: Props) => {
               e.stopPropagation();
               deleteSection(item.id);
               setCurrentSection({id: "", title: "", content: ""});
-              //console.log("elem clicked");
             }}
           >
             <TrashIcon />
