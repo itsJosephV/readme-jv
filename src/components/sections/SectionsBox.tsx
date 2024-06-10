@@ -9,15 +9,22 @@ import useScrollPositions from "../../hooks/useScrollPositions";
 
 import {MySection} from "./MySection";
 import {OptionSection} from "./OptionSection";
+// isSectionSelected
 
-const SectionsBox = ({sectionShift}: {sectionShift: CurrentSectionView}) => {
-  const sectionWrapperRef = useRef<React.ElementRef<"div">>(null);
+interface SectionBoxProps {
+  sectionView: CurrentSectionView;
+  isSectionSelected: boolean;
+  setIsSectionSelected: (isSectionSelected: boolean) => void;
+}
+
+const SectionsBox = ({sectionView, isSectionSelected, setIsSectionSelected}: SectionBoxProps) => {
+  const sectionBoxRef = useRef<React.ElementRef<"div">>(null);
 
   const [focusedSection, setFocusedSection] = useState<string | null>(null);
 
   const {sections, setSectionsData, initialSections} = useSectionStore();
 
-  const scrollPositions = useScrollPositions({sectionShift, sectionWrapperRef});
+  const scrollPositions = useScrollPositions({sectionView, sectionBoxRef, isSectionSelected});
 
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event;
@@ -44,8 +51,10 @@ const SectionsBox = ({sectionShift}: {sectionShift: CurrentSectionView}) => {
               <MySection
                 key={item.id}
                 isFocused={focusedSection === item.id}
+                isSectionSelected={isSectionSelected}
                 item={item}
                 setFocusedSection={setFocusedSection}
+                setIsSectionSelected={setIsSectionSelected}
               />
             ))}
           </SortableContext>
@@ -54,7 +63,9 @@ const SectionsBox = ({sectionShift}: {sectionShift: CurrentSectionView}) => {
     ),
     [CurrentSectionView.OPTIONS_SECTIONS]: (
       <ul className="space-y-3 p-3">
-        {initialSections?.map((item) => <OptionSection key={item.id} item={item} />)}
+        {initialSections?.map((item) => (
+          <OptionSection key={item.id} item={item} setIsSectionSelected={setIsSectionSelected} />
+        ))}
       </ul>
     ),
   };
@@ -63,10 +74,10 @@ const SectionsBox = ({sectionShift}: {sectionShift: CurrentSectionView}) => {
 
   return (
     <div
-      ref={sectionWrapperRef}
+      ref={sectionBoxRef}
       className="h-full overflow-y-auto rounded-sm border border-stone-100/20"
     >
-      <div>{currentSection[sectionShift]}</div>
+      <div>{currentSection[sectionView]}</div>
     </div>
   );
 };

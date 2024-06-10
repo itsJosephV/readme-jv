@@ -12,9 +12,17 @@ interface Props {
   item: SectionProps;
   isFocused: boolean;
   setFocusedSection: (id: string | null) => void;
+  isSectionSelected: boolean;
+  setIsSectionSelected: (isSectionSelected: boolean) => void;
 }
 
-export const MySection = ({item, isFocused, setFocusedSection}: Props) => {
+export const MySection = ({
+  item,
+  isFocused,
+  setFocusedSection,
+  isSectionSelected,
+  setIsSectionSelected,
+}: Props) => {
   const nodeRef = useRef<React.ElementRef<"li"> | null>(null);
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: item.id});
   const {setCurrentSection, currentSection, deleteSection, resetSection} = useSectionStore();
@@ -36,13 +44,17 @@ export const MySection = ({item, isFocused, setFocusedSection}: Props) => {
   };
 
   useEffect(() => {
-    if (currentSection.id === item.id) {
+    if (isSectionSelected) {
+      nodeRef.current?.scrollIntoView({behavior: "smooth", block: "center"});
       nodeRef.current?.click();
-      // nodeRef.current?.scrollIntoView({behavior: "smooth", block: "center"});
-    }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      const timeoutId = setTimeout(() => {
+        setIsSectionSelected(false);
+      }, 500);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isSectionSelected, setIsSectionSelected]);
 
   return (
     <li

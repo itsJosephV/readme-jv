@@ -1,7 +1,13 @@
 import {useSectionStore} from "../../store";
 import {SectionProps} from "../../types";
 
-export const OptionSection = ({item}: {item: SectionProps}) => {
+export const OptionSection = ({
+  item,
+  setIsSectionSelected,
+}: {
+  item: SectionProps;
+  setIsSectionSelected: (sectionSelected: boolean) => void;
+}) => {
   const {sections, setSectionsData, setCurrentSection} = useSectionStore();
 
   const handleAddSectionAndCurrent = () => {
@@ -28,6 +34,7 @@ export const OptionSection = ({item}: {item: SectionProps}) => {
       role="button"
       onClick={() => {
         handleAddSectionAndCurrent();
+        setIsSectionSelected(true);
       }}
     >
       <p className="flex-1">{item.title}</p>

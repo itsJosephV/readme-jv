@@ -2,11 +2,12 @@ import {ResetIcon} from "../../icons";
 import {useSectionStore} from "../../store";
 import {CurrentSectionView} from "../../types";
 
-const SectionsButtons = ({
-  setSetctionShift,
-}: {
-  setSetctionShift: (switchToSection: CurrentSectionView) => void;
-}) => {
+interface SectionsButtonsProps {
+  setSectionView: (switchToSection: CurrentSectionView) => void;
+  setIsSectionSelected: (isSectionSelected: boolean) => void;
+}
+
+const SectionsButtons = ({setSectionView, setIsSectionSelected}: SectionsButtonsProps) => {
   const resetValue = [{id: "1", title: "H1", content: "# Title"}];
 
   const {
@@ -27,13 +28,16 @@ const SectionsButtons = ({
       <div className="flex flex-1 gap-2">
         <button
           className="w-full rounded-sm bg-stone-700 p-1 transition-colors hover:bg-stone-600"
-          onClick={() => setSetctionShift(CurrentSectionView.MY_SECTIONS)}
+          onClick={() => setSectionView(CurrentSectionView.MY_SECTIONS)}
         >
           My Sections
         </button>
         <button
           className="w-full rounded-sm bg-stone-700 p-1 transition-colors hover:bg-stone-600"
-          onClick={() => setSetctionShift(CurrentSectionView.OPTIONS_SECTIONS)}
+          onClick={() => {
+            setSectionView(CurrentSectionView.OPTIONS_SECTIONS);
+            setIsSectionSelected(false);
+          }}
         >
           Add New
         </button>

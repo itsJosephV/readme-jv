@@ -10,9 +10,10 @@ import SectionsBox from "./components/sections/SectionsBox";
 
 function App() {
   const [sizes, setSizes] = useState([50, 50]);
-  const [sectionShift, setSetctionShift] = useState<CurrentSectionView>(
+  const [sectionView, setSectionView] = useState<CurrentSectionView>(
     CurrentSectionView.MY_SECTIONS,
   );
+  const [isSectionSelected, setIsSectionSelected] = useState<boolean>(false);
   const snapThresHold = 5;
 
   const dotSnapCss = `
@@ -48,6 +49,8 @@ function App() {
     onDragEnd: (sizes) => handleSnapCenter({sizes, snapThresHold, setSizes}),
   };
 
+  console.log(isSectionSelected);
+
   return (
     <>
       <main className="grid h-full max-h-screen grid-rows-[auto,1fr]">
@@ -66,8 +69,15 @@ function App() {
               <p className="flex-1 text-sm text-stone-400">Sections</p>
               <button className="rounded-sm bg-stone-600 px-2 text-sm text-stone-300">Reset</button>
             </div> */}
-            <SectionsButtons setSetctionShift={setSetctionShift} />
-            <SectionsBox sectionShift={sectionShift} />
+            <SectionsButtons
+              setIsSectionSelected={setIsSectionSelected}
+              setSectionView={setSectionView}
+            />
+            <SectionsBox
+              isSectionSelected={isSectionSelected}
+              sectionView={sectionView}
+              setIsSectionSelected={setIsSectionSelected}
+            />
           </section>
 
           <section className="split-panel-snapping w-full">
