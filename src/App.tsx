@@ -69,10 +69,7 @@ function App() {
               <p className="flex-1 text-sm text-stone-400">Sections</p>
               <button className="rounded-sm bg-stone-600 px-2 text-sm text-stone-300">Reset</button>
             </div> */}
-            <SectionsButtons
-              setIsSectionSelected={setIsSectionSelected}
-              setSectionView={setSectionView}
-            />
+            <SectionsButtons setSectionView={setSectionView} />
             <SectionsBox
               isSectionSelected={isSectionSelected}
               sectionView={sectionView}

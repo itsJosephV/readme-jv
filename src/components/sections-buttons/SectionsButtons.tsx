@@ -4,10 +4,9 @@ import {CurrentSectionView} from "../../types";
 
 interface SectionsButtonsProps {
   setSectionView: (switchToSection: CurrentSectionView) => void;
-  setIsSectionSelected: (isSectionSelected: boolean) => void;
 }
 
-const SectionsButtons = ({setSectionView, setIsSectionSelected}: SectionsButtonsProps) => {
+const SectionsButtons = ({setSectionView}: SectionsButtonsProps) => {
   const resetValue = [{id: "1", title: "H1", content: "# Title"}];
 
   const {
@@ -34,10 +33,7 @@ const SectionsButtons = ({setSectionView, setIsSectionSelected}: SectionsButtons
         </button>
         <button
           className="w-full rounded-sm bg-stone-700 p-1 transition-colors hover:bg-stone-600"
-          onClick={() => {
-            setSectionView(CurrentSectionView.OPTIONS_SECTIONS);
-            setIsSectionSelected(false);
-          }}
+          onClick={() => setSectionView(CurrentSectionView.OPTIONS_SECTIONS)}
         >
           Add New
         </button>
