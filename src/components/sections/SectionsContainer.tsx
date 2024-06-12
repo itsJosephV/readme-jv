@@ -9,7 +9,6 @@ import useScrollPositions from "../../hooks/useScrollPositions";
 
 import {MySection} from "./MySection";
 import {OptionSection} from "./OptionSection";
-// isSectionSelected
 
 interface SectionBoxProps {
   sectionView: CurrentSectionView;
@@ -17,14 +16,18 @@ interface SectionBoxProps {
   setIsSectionSelected: (isSectionSelected: boolean) => void;
 }
 
-const SectionsBox = ({sectionView, isSectionSelected, setIsSectionSelected}: SectionBoxProps) => {
+export const SectionsContainer = ({
+  sectionView,
+  isSectionSelected,
+  setIsSectionSelected,
+}: SectionBoxProps) => {
   const sectionBoxRef = useRef<React.ElementRef<"div">>(null);
 
   const [focusedSection, setFocusedSection] = useState<string | null>(null);
 
   const {sections, setSectionsData, initialSections} = useSectionStore();
 
-  const scrollPositions = useScrollPositions({sectionView, sectionBoxRef, isSectionSelected});
+  useScrollPositions({sectionView, sectionBoxRef, isSectionSelected});
 
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event;
@@ -70,8 +73,6 @@ const SectionsBox = ({sectionView, isSectionSelected, setIsSectionSelected}: Sec
     ),
   };
 
-  console.log(scrollPositions);
-
   return (
     <div
       ref={sectionBoxRef}
@@ -81,5 +82,3 @@ const SectionsBox = ({sectionView, isSectionSelected, setIsSectionSelected}: Sec
     </div>
   );
 };
-
-export default SectionsBox;

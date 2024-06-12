@@ -15,7 +15,13 @@ interface SectionsStore {
   resetSection: (title: string, id: string) => void;
 }
 
-const mySections: SectionProps[] = [{id: "1", title: "H1", content: "# Title"}];
+const mySections: SectionProps[] = [
+  {
+    id: "1",
+    title: "H1",
+    content: "# Project Title\n\nA brief description for this project and who is it for",
+  },
+];
 
 export const useSectionStore = create<SectionsStore>()(
   persist(

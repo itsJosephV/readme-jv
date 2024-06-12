@@ -4,7 +4,7 @@ import {editor} from "monaco-editor";
 
 import {useSectionStore} from "../../store";
 
-const MonacoComponent = () => {
+export const SectionEditor = () => {
   const {currentSection, updateSection, sections} = useSectionStore();
   const options: editor.IStandaloneEditorConstructionOptions = {
     readOnly: false,
@@ -35,5 +35,3 @@ const MonacoComponent = () => {
     />
   );
 };
-
-export {MonacoComponent};

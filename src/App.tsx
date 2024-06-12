@@ -1,27 +1,29 @@
 import Split, {SplitProps} from "react-split";
 import {useState} from "react";
 
-import {MarkdownComponent as Markdown} from "./components/markdown";
-import {MonacoComponent as Monaco} from "./components/monaco";
 import {createGutterElement, handleSnapCenter} from "./utils";
-import {CurrentSectionView} from "./types";
+import {CurrentPreviewView, CurrentSectionView} from "./types";
 import SectionsButtons from "./components/sections-buttons/SectionsButtons";
-import SectionsBox from "./components/sections/SectionsBox";
+import {PreviewContainer} from "./components/preview";
+import {SectionsContainer} from "./components/sections";
+import {SectionEditor} from "./components/editor";
 
 function App() {
   const [sizes, setSizes] = useState([50, 50]);
   const [sectionView, setSectionView] = useState<CurrentSectionView>(
     CurrentSectionView.MY_SECTIONS,
   );
+  const [previewView, setPreviewView] = useState<CurrentPreviewView>(CurrentPreviewView.MD_PREVIEW);
   const [isSectionSelected, setIsSectionSelected] = useState<boolean>(false);
+
   const snapThresHold = 5;
 
   const dotSnapCss = `
-  .split-panel-snapping {
+  .split-panel {
     position: relative;
   }
 
-  .split-panel-snapping-dots::after {
+  .split-snapping-dot::after {
     content: '';
     position: absolute;
     bottom: -12px;
@@ -32,9 +34,12 @@ function App() {
     transform: translateX(-50%);
   }
 
-  .split-panel-snapping-dots::after {
+  .split-snapping-dot::after {
     left: 50%;
   }`;
+
+  const handleMDPreview = () => setPreviewView(CurrentPreviewView.MD_PREVIEW);
+  const handleRawPreview = () => setPreviewView(CurrentPreviewView.MD_RAW);
 
   const splitProps: SplitProps = {
     cursor: "col-resize",
@@ -49,43 +54,50 @@ function App() {
     onDragEnd: (sizes) => handleSnapCenter({sizes, snapThresHold, setSizes}),
   };
 
-  console.log(isSectionSelected);
-
   return (
     <>
-      <main className="grid h-full max-h-screen grid-rows-[auto,1fr]">
+      <article className="grid h-full max-h-screen grid-rows-[auto,1fr]">
         <header className="flex items-center p-5 capitalize">
           <div className="flex-1 text-xl font-semibold">
             <i>Readme-js</i>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex gap-2">
+            <button className="bg-stone-600 px-2" onClick={handleMDPreview}>
+              Preview MD
+            </button>
+            <button className="bg-stone-600 px-2" onClick={handleRawPreview}>
+              Raw MD
+            </button>
+            <button className="bg-stone-600 px-2">Download MD</button>
+          </div>
+          {/* <div className="flex items-center gap-2">
             <i>LinkOne</i>
             <i>LinkTwo</i>
-          </div>
+          </div> */}
         </header>
-        <article className="min-h flex gap-3 p-5 pt-0">
+        <main className="min-h flex gap-3 p-5 pt-0">
           <section className="flex w-full max-w-80 flex-col gap-3">
             {/* <div className="flex items-center rounded-sm bg-stone-800 p-2">
               <p className="flex-1 text-sm text-stone-400">Sections</p>
               <button className="rounded-sm bg-stone-600 px-2 text-sm text-stone-300">Reset</button>
             </div> */}
             <SectionsButtons setSectionView={setSectionView} />
-            <SectionsBox
+            <SectionsContainer
               isSectionSelected={isSectionSelected}
               sectionView={sectionView}
               setIsSectionSelected={setIsSectionSelected}
             />
           </section>
 
-          <section className="split-panel-snapping w-full">
+          <section className="split-panel w-full">
             <Split {...splitProps} className="flex h-full border border-stone-100/20">
-              <Monaco />
-              <Markdown />
+              <SectionEditor />
+              <PreviewContainer previewView={previewView} />
             </Split>
-            <div className="split-panel-snapping-dots" />
+            <div className="split-snapping-dot" />
           </section>
-        </article>
-      </main>
+        </main>
+      </article>
       <style>{dotSnapCss}</style>
     </>
   );

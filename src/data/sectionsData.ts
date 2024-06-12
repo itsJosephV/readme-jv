@@ -1,10 +1,23 @@
 import {type SectionProps} from "../types";
 
 const sectionsData: SectionProps[] = [
-  {id: "1", title: "H1", content: "# Title"},
-  {id: "2", title: "H2", content: "## Subtitle"},
-  {id: "3", title: "H3", content: "### Subheading"},
-  {id: "4", title: "Paragraph", content: "This is a paragraph of text."},
+  {
+    id: "1",
+    title: "Project Title",
+    content: "# Project Title\nA brief description for this project and who is it for",
+  },
+  {
+    id: "2",
+    title: "Acknowledgements",
+    content:
+      "## Acknowledgements\n\n- [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)\n- [Awesome README](https://github.com/matiassingers/awesome-readme)\n- [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)",
+  },
+  {
+    id: "3",
+    title: "Authors",
+    content: "## Authors\n\n- [@itsJosephV](https://www.github.com/itsJosephV) ",
+  },
+  {id: "4", title: "Demo", content: "## Demo\n\nInsert gif or link to demo"},
   {id: "5", title: "Code", content: "`inline code`"},
   {id: "6", title: "Code Block", content: "```\ncode block\n```"},
   {

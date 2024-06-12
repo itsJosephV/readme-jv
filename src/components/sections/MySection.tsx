@@ -1,6 +1,6 @@
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
-import {useEffect, useRef} from "react";
+import {useLayoutEffect, useRef} from "react";
 
 import {type SectionProps} from "../../types";
 import {useSectionStore} from "../../store";
@@ -43,7 +43,7 @@ export const MySection = ({
     setCurrentSection(item);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isSectionSelected) {
       nodeRef.current?.scrollIntoView({behavior: "smooth", block: "center"});
       nodeRef.current?.click();
