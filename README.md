@@ -8,6 +8,7 @@
 - [ ] Solve DnDKit style (the element goes behind on drag)
 - [ ] Match code syntax-hightlight between monaco and markdown
 - [x] Get better icons
+- [ ] Toast (Sonner)
 - [ ] Create sections for badges
 - [ ] Animations?
 - [ ] Responsiveness?
