@@ -76,7 +76,7 @@ export const SectionsContainer = ({
   return (
     <div
       ref={sectionBoxRef}
-      className="h-full overflow-y-auto rounded-sm border border-stone-100/20"
+      className="h-full overflow-y-auto rounded-md border border-stone-100/20"
     >
       <div>{currentSection[sectionView]}</div>
     </div>

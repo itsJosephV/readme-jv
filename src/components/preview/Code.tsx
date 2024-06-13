@@ -30,19 +30,3 @@ const Code = ({className, children, ...props}: CodeProps) => {
 };
 
 export default Code;
-
-/**
- * Copy to clipboard component testing
- * Not necessary in this case
- */
-// import {CopyToClipboard} from "react-copy-to-clipboard";
-// import {CopyIcon} from "../../icons/CopyIcon";
-//onCopy={() => this.setState({copied: true})}
-// <div className="relative">
-{
-  /* <CopyToClipboard text={children}>
-        <button className="absolute right-2 top-2 rounded-md bg-stone-800 p-2 opacity-60">
-          <CopyIcon className="size-4" />
-        </button>
-      </CopyToClipboard> */
-}

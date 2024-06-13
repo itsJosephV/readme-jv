@@ -23,26 +23,26 @@ const SectionsButtons = ({setSectionView}: SectionsButtonsProps) => {
   // console.log(sections);
 
   return (
-    <div className="flex gap-2 rounded-sm border border-stone-100/20 p-3">
+    <div className="flex gap-2 rounded-md border border-stone-100/20 p-3">
       <div className="flex flex-1 gap-2">
         <button
-          className="w-full rounded-sm bg-stone-700 p-1 transition-colors hover:bg-stone-600"
+          className="w-full rounded-md bg-stone-700 p-1 transition-colors hover:bg-stone-600"
           onClick={() => setSectionView(CurrentSectionView.MY_SECTIONS)}
         >
           My Sections
         </button>
         <button
-          className="w-full rounded-sm bg-stone-700 p-1 transition-colors hover:bg-stone-600"
+          className="w-full rounded-md bg-stone-700 p-1 transition-colors hover:bg-stone-600"
           onClick={() => setSectionView(CurrentSectionView.OPTIONS_SECTIONS)}
         >
           Add New
         </button>
       </div>
       <button
-        className="w-auto rounded-sm bg-stone-700 p-1 px-2 transition-colors hover:bg-stone-600"
+        className="w-auto rounded-md bg-stone-700 p-1.5 transition-colors hover:bg-stone-600"
         onClick={handleReset}
       >
-        <ResetIcon />
+        <ResetIcon className="size-5 scale-x-[-1]" />
       </button>
     </div>
   );

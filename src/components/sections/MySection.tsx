@@ -63,7 +63,7 @@ export const MySection = ({
         nodeRef.current = node;
       }}
       className={cn(
-        "flex w-full rounded-sm bg-stone-800 py-2.5 pl-2 pr-2.5 transition-colors hover:bg-stone-700",
+        "flex w-full rounded-md bg-stone-800 py-2.5 pl-2 pr-2.5 transition-colors hover:bg-stone-700",
         {
           "ring ring-violet-400/60 focus:ring-1": currentSection.id === item.id,
         },
@@ -84,7 +84,7 @@ export const MySection = ({
       {isFocused && (
         <div className="flex gap-2">
           <button
-            className="cursor-pointer rounded-sm bg-stone-600 p-1 transition-colors"
+            className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               handleResetButton();
@@ -93,7 +93,7 @@ export const MySection = ({
             <ResetIcon />
           </button>
           <button
-            className="cursor-pointer rounded-sm bg-stone-600 p-1 transition-colors"
+            className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               deleteSection(item.id);

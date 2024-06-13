@@ -30,7 +30,11 @@ const sectionsData: SectionProps[] = [
   {id: "9", title: "List", content: "# List\n- Item 1\n- Item 2\n- Item 3\n"},
   {id: "10", title: "Ordered List", content: "1. First item\n2. Second item\n3. Third item"},
   {id: "11", title: "Blockquote", content: "> This is a blockquote."},
-  {id: "12", title: "Checkbox List", content: "- [x] Checked item\n- [ ] Unchecked item"},
+  {
+    id: "12",
+    title: "Checkbox List",
+    content: "## Check List\n- [x] Checked item\n- [ ] Unchecked item",
+  },
   {
     id: "13",
     title: "Table",

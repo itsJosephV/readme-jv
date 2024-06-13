@@ -30,7 +30,7 @@ export const OptionSection = ({
 
   return (
     <li
-      className="flex w-full select-none rounded-sm bg-stone-800 px-3 py-2.5 transition-colors hover:bg-stone-600"
+      className="flex w-full select-none rounded-md bg-stone-800 px-3 py-2.5 transition-colors hover:bg-stone-600"
       role="button"
       onClick={() => {
         handleAddSectionAndCurrent();
@@ -39,10 +39,10 @@ export const OptionSection = ({
     >
       <p className="flex-1">{item.title}</p>
       <div className="flex gap-2">
-        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-stone-600 text-xs">
+        <div className="flex h-5 w-5 items-center justify-center rounded-md bg-stone-600 text-xs">
           {findAmount}
         </div>
-        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-stone-600 font-serif text-xs font-semibold">
+        <div className="flex h-5 w-5 items-center justify-center rounded-md bg-stone-600 font-serif text-xs font-semibold">
           i
         </div>
       </div>
