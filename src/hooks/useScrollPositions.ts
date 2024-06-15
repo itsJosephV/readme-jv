@@ -1,6 +1,6 @@
 import {useLayoutEffect, useState} from "react";
 
-import {CurrentSectionView} from "../types";
+import {CurrentSectionView} from "@/types";
 
 interface USPProps {
   sectionView: CurrentSectionView;

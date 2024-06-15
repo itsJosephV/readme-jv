@@ -1,8 +1,8 @@
 import {create} from "zustand";
 import {persist} from "zustand/middleware";
 
-import {type SectionProps} from "../types";
-import {sectionsData} from "../data";
+import {sectionsData} from "@/data";
+import {type SectionProps} from "@/types";
 
 interface SectionsStore {
   currentSection: SectionProps;

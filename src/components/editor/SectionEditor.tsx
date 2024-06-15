@@ -2,12 +2,17 @@
 import MonacoEditor from "@monaco-editor/react";
 import {editor} from "monaco-editor";
 
-import {useSectionStore} from "../../store";
+import {useSectionStore} from "@/store";
 
 export const SectionEditor = () => {
   const {currentSection, updateSection, sections} = useSectionStore();
+
+  const isContentAvailable = currentSection.content !== "";
+  const isSectionsNotEmpty = sections.length > 0;
+  const getDefaultContent = () => "\n<- Add a section to start editing ";
+
   const options: editor.IStandaloneEditorConstructionOptions = {
-    readOnly: false,
+    readOnly: !isContentAvailable || !isSectionsNotEmpty,
     minimap: {enabled: false},
     wordWrap: "on",
     cursorStyle: "line-thin",
@@ -16,10 +21,6 @@ export const SectionEditor = () => {
     scrollBeyondLastLine: false,
     automaticLayout: true,
   };
-
-  const isContentAvailable = currentSection.content !== "";
-  const isSectionsNotEmpty = sections.length > 0;
-  const getDefaultContent = () => "<-\n Add a section to start editing\n<- ";
 
   const value =
     isContentAvailable || isSectionsNotEmpty ? currentSection.content : getDefaultContent();

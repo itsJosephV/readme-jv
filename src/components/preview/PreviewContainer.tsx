@@ -1,7 +1,7 @@
-import {CurrentPreviewView} from "../../types";
-
-import {RawMD} from "./RawMD";
 import {PreviewMarkdown} from "./PreviewMarkdown";
+import {RawMD} from "./RawMD";
+
+import {CurrentPreviewView} from "@/types";
 
 export const PreviewContainer = ({previewView}: {previewView: CurrentPreviewView}) => {
   const currentPreview: Record<CurrentPreviewView, JSX.Element> = {

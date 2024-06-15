@@ -1,4 +1,4 @@
-import {type SectionProps} from "../types";
+import {type SectionProps} from "@/types";
 
 const sectionsData: SectionProps[] = [
   {

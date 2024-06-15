@@ -3,14 +3,15 @@ import {DndContext, DragEndEvent, closestCenter} from "@dnd-kit/core";
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
 import {FormEvent, useMemo, useRef, useState} from "react";
 
-import {useSectionStore} from "../../store";
-import {CurrentSectionView, SectionProps} from "../../types";
-import useScrollPositions from "../../hooks/useScrollPositions";
 import {Modal} from "../modal";
 
-import {MySection} from "./MySection";
 import {OptionSection} from "./OptionSection";
-import SearchInput from "./SearchInput";
+import {SearchInput} from "./SearchInput";
+import {MySection} from "./MySection";
+
+import useScrollPositions from "@/hooks/useScrollPositions";
+import {CurrentSectionView, SectionProps} from "@/types";
+import {useSectionStore} from "@/store";
 
 interface SectionBoxProps {
   sectionView: CurrentSectionView;

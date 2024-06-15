@@ -1,7 +1,7 @@
-import {sectionsData} from "../../data";
-import {ResetIcon} from "../../icons";
-import {useSectionStore} from "../../store";
-import {CurrentSectionView} from "../../types";
+import {sectionsData} from "@/data";
+import {ResetIcon} from "@/icons";
+import {useSectionStore} from "@/store";
+import {CurrentSectionView} from "@/types";
 
 interface SectionsButtonsProps {
   setSectionView: (switchToSection: CurrentSectionView) => void;

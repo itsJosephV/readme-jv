@@ -1,5 +1,5 @@
-import {useSectionStore} from "../../store";
-import {SectionProps} from "../../types";
+import {useSectionStore} from "@/store";
+import {type SectionProps} from "@/types";
 
 export const OptionSection = ({
   item,

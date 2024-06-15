@@ -1,5 +1,5 @@
-import {useSectionStore} from "../../store";
-import {handleMDFormart} from "../../utils";
+import {useSectionStore} from "@/store";
+import {handleMDFormart} from "@/utils";
 
 export const RawMD = () => {
   const {sections} = useSectionStore();

@@ -1,12 +1,12 @@
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+
 import "github-markdown-css";
-
-import {handleMDFormart} from "../../utils";
-import {useSectionStore} from "../../store";
-
 import Code from "./Code";
+
+import {useSectionStore} from "@/store";
+import {handleMDFormart} from "@/utils";
 
 export const PreviewMarkdown = () => {
   const {sections} = useSectionStore();

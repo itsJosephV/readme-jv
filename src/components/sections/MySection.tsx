@@ -2,11 +2,10 @@ import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {useLayoutEffect, useRef} from "react";
 
-import {type SectionProps} from "../../types";
-import {useSectionStore} from "../../store";
-import {DragIcon, ResetIcon} from "../../icons";
-import {TrashIcon} from "../../icons";
-import {cn} from "../../utils";
+import {type SectionProps} from "@/types";
+import {cn} from "@/utils";
+import {DragIcon, ResetIcon, TrashIcon} from "@/icons";
+import {useSectionStore} from "@/store";
 
 interface Props {
   section: SectionProps;

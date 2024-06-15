@@ -1,12 +1,10 @@
 import {useState} from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 
-import {CopiedIcon} from "../../icons/CopiedIcon";
-import {cn, handleMDFormart} from "../../utils";
-import {CurrentPreviewView} from "../../types";
-import {useSectionStore} from "../../store";
-import {CopyIcon, PreviewIcon, RawIcon} from "../../icons";
-import {DownloadFile} from "../../icons/DownloadFile";
+import {CopiedIcon, CopyIcon, DownloadFile, PreviewIcon, RawIcon} from "@/icons";
+import {CurrentPreviewView} from "@/types";
+import {useSectionStore} from "@/store";
+import {cn, handleMDFormart} from "@/utils";
 
 export const PreviewButtons = ({
   previewView,
