@@ -9,22 +9,16 @@ import {TrashIcon} from "../../icons";
 import {cn} from "../../utils";
 
 interface Props {
-  item: SectionProps;
+  section: SectionProps;
   isFocused: boolean;
   setFocusedSection: (id: string | null) => void;
   isSectionSelected: boolean;
   setIsSectionSelected: (isSectionSelected: boolean) => void;
 }
 
-export const MySection = ({
-  item,
-  isFocused,
-  setFocusedSection,
-  isSectionSelected,
-  setIsSectionSelected,
-}: Props) => {
+export const MySection = ({section, isFocused, setFocusedSection, setIsSectionSelected}: Props) => {
   const nodeRef = useRef<React.ElementRef<"li"> | null>(null);
-  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: item.id});
+  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: section.id});
   const {setCurrentSection, currentSection, deleteSection, resetSection} = useSectionStore();
 
   const style = {
@@ -34,19 +28,24 @@ export const MySection = ({
 
   const handleResetButton = () => {
     //TODO: ADD SOME VERIFICATION BEFORE RESETTING 👁️
-    resetSection(item.title, item.id);
+    resetSection(section.title, section.id);
   };
 
   const handleSectionClick = () => {
     //TODO: HANDLE REDUNDANT CALLS
-    setFocusedSection(item.id);
-    setCurrentSection(item);
+    setFocusedSection(section.id);
+    setCurrentSection(section);
   };
 
   useLayoutEffect(() => {
-    if (isSectionSelected) {
-      nodeRef.current?.scrollIntoView({behavior: "smooth", block: "center"});
-      nodeRef.current?.click();
+    if (currentSection.id === section.id) {
+      const node = nodeRef.current;
+
+      if (node) {
+        node.scrollIntoView({behavior: "smooth", block: "nearest"});
+        node.focus({preventScroll: true});
+        node.click();
+      }
 
       const timeoutId = setTimeout(() => {
         setIsSectionSelected(false);
@@ -54,7 +53,7 @@ export const MySection = ({
 
       return () => clearTimeout(timeoutId);
     }
-  }, [isSectionSelected, setIsSectionSelected]);
+  }, [currentSection.id, section.id, setIsSectionSelected]);
 
   return (
     <li
@@ -63,14 +62,15 @@ export const MySection = ({
         nodeRef.current = node;
       }}
       className={cn(
-        "flex w-full rounded-md bg-stone-800 py-2.5 pl-2 pr-2.5 transition-colors hover:bg-stone-700",
+        "flex w-full scroll-my-3 rounded-md bg-stone-800 py-2.5 pl-2 pr-2.5 transition-colors hover:bg-stone-700 focus:ring-2 focus:ring-emerald-300/50",
         {
-          "ring ring-violet-400/60 focus:ring-1": currentSection.id === item.id,
+          "bg-emerald-300/20": currentSection.id === section.id,
         },
       )}
-      id={item.id}
+      id={section.id}
       role="button"
       style={style}
+      tabIndex={0}
       onClick={handleSectionClick}
     >
       <div className="flex flex-1 items-center gap-2">
@@ -79,7 +79,7 @@ export const MySection = ({
           {...attributes}
           {...listeners}
         />
-        <p className="">{item.title}</p>
+        <p className="flex-1 truncate pr-1.5">{section.title}</p>
       </div>
       {isFocused && (
         <div className="flex gap-2">
@@ -96,7 +96,7 @@ export const MySection = ({
             className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
-              deleteSection(item.id);
+              deleteSection(section.id);
               setCurrentSection({id: "", title: "", content: ""});
             }}
           >

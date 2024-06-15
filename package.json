@@ -15,6 +15,7 @@
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@monaco-editor/react": "^4.6.0",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "autoprefixer": "^10.4.17",
     "clsx": "^2.1.1",

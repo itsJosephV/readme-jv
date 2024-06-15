@@ -14,6 +14,10 @@
   --header-height: 62px
 }
 
+.min-h {
+  min-height: calc(100dvh - var(--header-height));
+}
+
 .gutter {
   background-color: #262626;
   background-repeat: no-repeat;
@@ -27,11 +31,49 @@
   }
 }
 
-.min-h {
-  min-height: calc(100dvh - var(--header-height));
-}
-
 #textarea-raw-code {
   background-color: #0d1117;
   color: #e6edf3;
 }
+
+/* MODAL ANIMATION */
+@keyframes dialog-overlay-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-overlay-hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-content-show {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes dialog-content-hide {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+}
+/* END OF MODAL ANIMATION */

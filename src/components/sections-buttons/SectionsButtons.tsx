@@ -1,3 +1,4 @@
+import {sectionsData} from "../../data";
 import {ResetIcon} from "../../icons";
 import {useSectionStore} from "../../store";
 import {CurrentSectionView} from "../../types";
@@ -6,18 +7,26 @@ interface SectionsButtonsProps {
   setSectionView: (switchToSection: CurrentSectionView) => void;
 }
 
-const SectionsButtons = ({setSectionView}: SectionsButtonsProps) => {
-  const resetValue = [{id: "1", title: "H1", content: "# Title"}];
+export const SectionsButtons = ({setSectionView}: SectionsButtonsProps) => {
+  const resetValue = [
+    {
+      id: "1",
+      title: "Project Title",
+      content: "# Project Title\nA brief description for this project and who is it for",
+    },
+  ];
 
   const {
     setSectionsData,
     setCurrentSection,
+    setInitialSectionsAndCustoms,
     //  sections
   } = useSectionStore();
 
   const handleReset = () => {
     setSectionsData(resetValue);
     setCurrentSection(resetValue[0]);
+    setInitialSectionsAndCustoms(sectionsData);
   };
 
   // console.log(sections);

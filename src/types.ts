@@ -2,6 +2,7 @@ export interface SectionProps {
   id: string;
   title: string;
   content: string;
+  custom?: boolean;
 }
 
 export enum CurrentSectionView {

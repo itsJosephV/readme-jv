@@ -5,9 +5,10 @@ import {type SectionProps} from "../types";
 import {sectionsData} from "../data";
 
 interface SectionsStore {
-  initialSections: SectionProps[];
-  sections: SectionProps[];
   currentSection: SectionProps;
+  sections: SectionProps[];
+  initialSections: SectionProps[];
+  setInitialSectionsAndCustoms: (prevInitials: SectionProps[]) => void;
   setCurrentSection: (prevSection: SectionProps) => void;
   setSectionsData: (prevSections: SectionProps[]) => void;
   updateSection: (value: string) => void;
@@ -18,8 +19,8 @@ interface SectionsStore {
 const mySections: SectionProps[] = [
   {
     id: "1",
-    title: "H1",
-    content: "# Project Title\n\nA brief description for this project and who is it for",
+    title: "Project Title",
+    content: "# Project Title\nA brief description for this project and who is it for",
   },
 ];
 
@@ -27,8 +28,10 @@ export const useSectionStore = create<SectionsStore>()(
   persist(
     (set) => ({
       sections: mySections,
-      initialSections: sectionsData,
       currentSection: mySections[0],
+      initialSections: sectionsData,
+      setInitialSectionsAndCustoms: (newInitialSections) =>
+        set(() => ({initialSections: newInitialSections})),
       setSectionsData: (newSectionsData) => set(() => ({sections: newSectionsData})),
       setCurrentSection: (newCurrentSection) => set(() => ({currentSection: newCurrentSection})),
       updateSection: (value) =>
