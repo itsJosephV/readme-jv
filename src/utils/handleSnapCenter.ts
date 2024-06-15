@@ -1,13 +1,13 @@
 interface Props {
   sizes: number[];
-  snapThresHold: number;
+  SNAP_TRESHOLD: number;
   setSizes: (sizes: number[]) => void;
 }
 
-export const handleSnapCenter = ({sizes, snapThresHold, setSizes}: Props) => {
+export const handleSnapCenter = ({sizes, SNAP_TRESHOLD, setSizes}: Props) => {
   const [leftPanel, rightPanel] = sizes;
 
-  if (Math.abs(leftPanel - 50) <= snapThresHold && Math.abs(rightPanel - 50) <= snapThresHold) {
+  if (Math.abs(leftPanel - 50) <= SNAP_TRESHOLD && Math.abs(rightPanel - 50) <= SNAP_TRESHOLD) {
     setSizes([50, 50]);
   } else {
     setSizes(sizes);

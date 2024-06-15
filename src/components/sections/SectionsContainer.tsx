@@ -1,7 +1,7 @@
 import {SortableContext, verticalListSortingStrategy, arrayMove} from "@dnd-kit/sortable";
 import {DndContext, DragEndEvent, closestCenter} from "@dnd-kit/core";
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
-import {FormEvent, useRef, useState} from "react";
+import {FormEvent, useMemo, useRef, useState} from "react";
 
 import {useSectionStore} from "../../store";
 import {CurrentSectionView, SectionProps} from "../../types";
@@ -10,6 +10,7 @@ import {Modal} from "../modal";
 
 import {MySection} from "./MySection";
 import {OptionSection} from "./OptionSection";
+import SearchInput from "./SearchInput";
 
 interface SectionBoxProps {
   sectionView: CurrentSectionView;
@@ -23,8 +24,10 @@ export const SectionsContainer = ({
   setIsSectionSelected,
 }: SectionBoxProps) => {
   const sectionBoxRef = useRef<React.ElementRef<"div">>(null);
+  const inputRef = useRef<React.ElementRef<"input">>(null);
 
   const [focusedSection, setFocusedSection] = useState<string | null>(null);
+  const [query, setQuery] = useState<string>("");
 
   const {
     sections,
@@ -33,8 +36,6 @@ export const SectionsContainer = ({
     setCurrentSection,
     setInitialSectionsAndCustoms,
   } = useSectionStore();
-
-  const inputRef = useRef<React.ElementRef<"input">>(null);
 
   useScrollPositions({sectionView, sectionBoxRef, isSectionSelected});
 
@@ -52,13 +53,10 @@ export const SectionsContainer = ({
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    //recover the value
 
     const inputValue = inputRef.current?.value;
 
     if (inputValue === "") return;
-
-    // create custom section
 
     const customSection: SectionProps = {
       id: crypto.randomUUID(),
@@ -72,6 +70,13 @@ export const SectionsContainer = ({
     setCurrentSection(customSection);
     setIsSectionSelected(true);
   };
+
+  const filteredSections = useMemo(() => {
+    return initialSections
+      .filter((section) => !section.custom)
+      .filter((section) => section.title.toLowerCase().includes(query.toLowerCase()))
+      .sort((a, b) => +a.title - +b.title);
+  }, [initialSections, query]);
 
   const currentSection: Record<CurrentSectionView, JSX.Element> = {
     [CurrentSectionView.MY_SECTIONS]: (
@@ -99,11 +104,11 @@ export const SectionsContainer = ({
     [CurrentSectionView.OPTIONS_SECTIONS]: (
       <ul className="space-y-3 p-3">
         <li>
+          <SearchInput query={query} setQuery={setQuery} />
+        </li>
+        <li>
           <Modal>
-            <Modal.Button
-              className="w-full select-none rounded-md bg-stone-800 px-3 py-2.5 transition-colors hover:bg-stone-600"
-              onClick={() => console.log("create custom section")}
-            >
+            <Modal.Button className="w-full select-none rounded-md bg-stone-800 px-4 py-2.5 transition-colors hover:bg-stone-600">
               Custom Section
             </Modal.Button>
             <Modal.Content title="Custom section">
@@ -117,11 +122,13 @@ export const SectionsContainer = ({
             </Modal.Content>
           </Modal>
         </li>
-        {initialSections
-          .filter((section) => !section.custom)
-          .map((sect) => (
-            <OptionSection key={sect.id} item={sect} setIsSectionSelected={setIsSectionSelected} />
-          ))}
+        {filteredSections.map((section) => (
+          <OptionSection
+            key={section.id}
+            item={section}
+            setIsSectionSelected={setIsSectionSelected}
+          />
+        ))}
       </ul>
     ),
   };

@@ -26,8 +26,8 @@ const sectionsData: SectionProps[] = [
     content:
       "![Alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Github-desktop-logo-symbol.svg/2048px-Github-desktop-logo-symbol.svg.png)",
   },
-  {id: "8", title: "Link", content: "[Link text](https://example.com)"},
   {id: "9", title: "List", content: "# List\n- Item 1\n- Item 2\n- Item 3\n"},
+  {id: "8", title: "Link", content: "[Link text](https://example.com)"},
   {id: "10", title: "Ordered List", content: "1. First item\n2. Second item\n3. Third item"},
   {id: "11", title: "Blockquote", content: "> This is a blockquote."},
   {

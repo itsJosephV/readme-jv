@@ -17,7 +17,7 @@ function App() {
   const [previewView, setPreviewView] = useState<CurrentPreviewView>(CurrentPreviewView.MD_PREVIEW);
   const [isSectionSelected, setIsSectionSelected] = useState<boolean>(false);
 
-  const snapThresHold = 5;
+  const SNAP_TRESHOLD = 5;
 
   const dotSnapCss = `
   .split-panel {
@@ -49,7 +49,7 @@ function App() {
     minSize: 100,
     sizes: sizes,
     onDrag: (sizes) => setSizes(sizes),
-    onDragEnd: (sizes) => handleSnapCenter({sizes, snapThresHold, setSizes}),
+    onDragEnd: (sizes) => handleSnapCenter({sizes, SNAP_TRESHOLD, setSizes}),
   };
 
   return (
