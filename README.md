@@ -2,7 +2,7 @@
 
 - [ ] Improve sections content
 - [x] Custom section option
-- [ ] Search component
+- [x] Search component
 - [ ] Turn Logo into a trigger for a popup with author info, etc
 - [x] Add textarea component with raw code
 - [x] Add toggle from preview in markdown to raw code
