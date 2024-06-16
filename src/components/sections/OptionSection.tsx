@@ -1,3 +1,5 @@
+import {useMemo} from "react";
+
 import {useSectionStore} from "@/store";
 import {type SectionProps} from "@/types";
 
@@ -20,13 +22,16 @@ export const OptionSection = ({
     setCurrentSection(newSectionWithNewId);
   };
 
-  const findAmount = sections.reduce((acc, curr) => {
-    if (curr.title === item.title) {
-      acc++;
-    }
+  const sectionAmount = useMemo(() => {
+    return sections.reduce((acc, curr) => {
+      if (curr.title === item.title) {
+        acc++;
+      }
 
-    return acc;
-  }, 0);
+      return acc;
+    }, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sections.length, item.title]);
 
   return (
     <li
@@ -40,7 +45,7 @@ export const OptionSection = ({
       <p className="flex-1">{item.title}</p>
       <div className="flex gap-2">
         <div className="flex h-5 w-5 items-center justify-center rounded-md bg-stone-600 text-xs">
-          {findAmount}
+          {sectionAmount}
         </div>
         <div className="flex h-5 w-5 items-center justify-center rounded-md bg-stone-600 font-serif text-xs font-semibold">
           i
