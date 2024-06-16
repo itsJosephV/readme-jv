@@ -27,7 +27,6 @@ export const MySection = ({section, isFocused, setFocusedSection, setIsSectionSe
   };
 
   const handleResetSection = () => {
-    //TODO: ADD SOME VERIFICATION BEFORE RESETTING 👁️
     const initialSectionContent = initialSections.find(
       (sect) => sect.title === section.title,
     )?.content;
@@ -35,6 +34,12 @@ export const MySection = ({section, isFocused, setFocusedSection, setIsSectionSe
     if (initialSectionContent) {
       updateSection(initialSectionContent);
     }
+  };
+
+  const handleDeleteSection = () => {
+    //TODO: set current to an existing array, maybe?
+    deleteSection(section.id);
+    setCurrentSection({id: "", title: "", content: ""});
   };
 
   const handleSectionClick = () => {
@@ -102,8 +107,7 @@ export const MySection = ({section, isFocused, setFocusedSection, setIsSectionSe
             className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
-              deleteSection(section.id);
-              setCurrentSection({id: "", title: "", content: ""});
+              handleDeleteSection();
             }}
           >
             <TrashIcon />
