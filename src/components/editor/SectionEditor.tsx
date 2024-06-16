@@ -12,7 +12,6 @@ export const SectionEditor = () => {
   const getDefaultContent = () => "\n<- Add a section to start editing ";
 
   const options: editor.IStandaloneEditorConstructionOptions = {
-    readOnly: !isContentAvailable || !isSectionsNotEmpty,
     minimap: {enabled: false},
     wordWrap: "on",
     cursorStyle: "line-thin",

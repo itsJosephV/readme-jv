@@ -9,9 +9,11 @@
 
 
 :root {
-  background-color: #0c0a09;
-  color: #fafaf9;
   --header-height: 62px
+}
+
+body {
+@apply bg-stone-950 text-stone-100
 }
 
 .min-h {

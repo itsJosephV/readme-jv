@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {persist} from "zustand/middleware";
+// import {persist} from "zustand/middleware";
 
 import {sectionsData} from "@/data";
 import {type SectionProps} from "@/types";
@@ -25,47 +25,47 @@ const mySections: SectionProps[] = [
 ];
 
 export const useSectionStore = create<SectionsStore>()(
-  persist(
-    (set) => ({
-      sections: mySections,
-      currentSection: mySections[0],
-      initialSections: sectionsData,
-      setInitialSectionsAndCustoms: (newInitialSections) =>
-        set(() => ({initialSections: newInitialSections})),
-      setSectionsData: (newSectionsData) => set(() => ({sections: newSectionsData})),
-      setCurrentSection: (newCurrentSection) => set(() => ({currentSection: newCurrentSection})),
-      updateSection: (value) =>
-        set((state) => ({
-          sections: state.sections.map((section) =>
-            section.id === state.currentSection.id ? {...section, content: value} : section,
-          ),
-          currentSection: {...state.currentSection, content: value},
-        })),
-      deleteSection: (id) =>
-        set((prev) => ({
-          sections: prev.sections.filter((section) => section.id !== id),
-        })),
-      resetSection: (title, id) =>
-        set((state) => {
-          const initialSectionContent = state.initialSections.find(
-            (section) => section.title === title,
-          )?.content;
+  // persist(
+  (set) => ({
+    sections: mySections,
+    currentSection: mySections[0],
+    initialSections: sectionsData,
+    setInitialSectionsAndCustoms: (newInitialSections) =>
+      set(() => ({initialSections: newInitialSections})),
+    setSectionsData: (newSectionsData) => set(() => ({sections: newSectionsData})),
+    setCurrentSection: (newCurrentSection) => set(() => ({currentSection: newCurrentSection})),
+    updateSection: (value) =>
+      set((state) => ({
+        sections: state.sections.map((section) =>
+          section.id === state.currentSection.id ? {...section, content: value} : section,
+        ),
+        currentSection: {...state.currentSection, content: value},
+      })),
+    deleteSection: (id) =>
+      set((prev) => ({
+        sections: prev.sections.filter((section) => section.id !== id),
+      })),
+    resetSection: (title, id) =>
+      set((state) => {
+        const initialSectionContent = state.initialSections.find(
+          (section) => section.title === title,
+        )?.content;
 
-          if (initialSectionContent) {
-            return {
-              sections: state.sections.map((section) =>
-                section.id === id ? {...section, content: initialSectionContent} : section,
-              ),
-              currentSection:
-                state.currentSection.id === id
-                  ? {...state.currentSection, content: initialSectionContent}
-                  : state.currentSection,
-            };
-          }
+        if (initialSectionContent) {
+          return {
+            sections: state.sections.map((section) =>
+              section.id === id ? {...section, content: initialSectionContent} : section,
+            ),
+            currentSection:
+              state.currentSection.id === id
+                ? {...state.currentSection, content: initialSectionContent}
+                : state.currentSection,
+          };
+        }
 
-          return state;
-        }),
-    }),
-    {name: "sections-store"},
-  ),
+        return state;
+      }),
+  }),
+  // ),
+  // {name: "sections-store"},
 );

@@ -30,7 +30,7 @@ export const OptionSection = ({
 
   return (
     <li
-      className="flex w-full select-none items-center rounded-md bg-stone-800 py-2.5 pl-4 pr-3 transition-colors hover:bg-stone-600"
+      className="flex w-full select-none items-center rounded-md border border-stone-700 bg-stone-800 py-2.5 pl-4 pr-3 transition-colors hover:bg-stone-700"
       role="button"
       onClick={() => {
         handleAddSectionAndCurrent();

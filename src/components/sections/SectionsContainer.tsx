@@ -12,6 +12,8 @@ import {MySection} from "./MySection";
 import useScrollPositions from "@/hooks/useScrollPositions";
 import {CurrentSectionView, SectionProps} from "@/types";
 import {useSectionStore} from "@/store";
+import {BlackHoleIcon} from "@/icons/BlackHoleIcon";
+import useDebounce from "@/hooks/useDebounce";
 
 interface SectionBoxProps {
   sectionView: CurrentSectionView;
@@ -29,11 +31,12 @@ export const SectionsContainer = ({
 
   const [focusedSection, setFocusedSection] = useState<string | null>(null);
   const [query, setQuery] = useState<string>("");
+  const debounceSearch = useDebounce(query);
 
   const {
     sections,
-    setSectionsData,
     initialSections,
+    setSectionsData,
     setCurrentSection,
     setInitialSectionsAndCustoms,
   } = useSectionStore();
@@ -62,7 +65,10 @@ export const SectionsContainer = ({
     const customSection: SectionProps = {
       id: crypto.randomUUID(),
       title: inputValue as string,
-      content: "# Custom section\n This is your custom section",
+      content: `
+## ${inputValue}
+This is your custom section
+`,
       custom: true,
     };
 
@@ -73,14 +79,24 @@ export const SectionsContainer = ({
   };
 
   const filteredSections = useMemo(() => {
+    console.log("running");
+
     return initialSections
       .filter((section) => !section.custom)
-      .filter((section) => section.title.toLowerCase().includes(query.toLowerCase()))
-      .sort((a, b) => +a.title - +b.title);
-  }, [initialSections, query]);
+      .filter((section) => section.title.toLowerCase().includes(debounceSearch.toLowerCase()))
+      .sort((a, b) => {
+        const titleA = a.title.toLowerCase();
+        const titleB = b.title.toLowerCase();
+
+        if (titleA < titleB) return -1;
+        if (titleA > titleB) return 1;
+
+        return 0;
+      });
+  }, [initialSections, debounceSearch]);
 
   const currentSection: Record<CurrentSectionView, JSX.Element> = {
-    [CurrentSectionView.MY_SECTIONS]: (
+    [CurrentSectionView.MY_SECTIONS]: sections.length ? (
       <DndContext
         collisionDetection={closestCenter}
         modifiers={[restrictToVerticalAxis]}
@@ -101,6 +117,14 @@ export const SectionsContainer = ({
           </SortableContext>
         </ul>
       </DndContext>
+    ) : (
+      <div className="flex h-full flex-col items-center justify-center gap-3 text-stone-700">
+        <BlackHoleIcon className="size-28 " />
+        <div className="text-center">
+          <p>Your sections are gone!</p>
+          <p>Start adding some {":)"}</p>
+        </div>
+      </div>
     ),
     [CurrentSectionView.OPTIONS_SECTIONS]: (
       <ul className="space-y-3 p-3">
@@ -109,7 +133,7 @@ export const SectionsContainer = ({
         </li>
         <li>
           <Modal>
-            <Modal.Button className="w-full select-none rounded-md bg-stone-800 px-4 py-2.5 transition-colors hover:bg-stone-600">
+            <Modal.Button className="w-full select-none rounded-md border border-stone-700 bg-stone-800 px-4 py-2.5 transition-colors hover:bg-stone-700">
               Custom Section
             </Modal.Button>
             <Modal.Content title="Custom section">
@@ -139,7 +163,9 @@ export const SectionsContainer = ({
       ref={sectionBoxRef}
       className="h-full overflow-y-auto rounded-md border border-stone-100/20"
     >
-      <div>{currentSection[sectionView]}</div>
+      <div className="h-full">{currentSection[sectionView]}</div>
     </div>
   );
 };
+
+// https://api.dictionaryapi.dev/api/v2/entries/en/perfect
