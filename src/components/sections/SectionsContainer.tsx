@@ -9,11 +9,11 @@ import {OptionSection} from "./OptionSection";
 import {SearchInput} from "./SearchInput";
 import {MySection} from "./MySection";
 
-import useScrollPositions from "@/hooks/useScrollPositions";
 import {CurrentSectionView, SectionProps} from "@/types";
 import {useSectionStore} from "@/store";
 import {BlackHoleIcon} from "@/icons/BlackHoleIcon";
 import useDebounce from "@/hooks/useDebounce";
+import useScrollPositions from "@/hooks/useScrollPositions";
 
 interface SectionBoxProps {
   sectionView: CurrentSectionView;
@@ -79,8 +79,7 @@ This is your custom section
   };
 
   const filteredSections = useMemo(() => {
-    console.log("running");
-
+    //console.log("running");
     return initialSections
       .filter((section) => !section.custom)
       .filter((section) => section.title.toLowerCase().includes(debounceSearch.toLowerCase()))
