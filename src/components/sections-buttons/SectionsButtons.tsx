@@ -1,35 +1,29 @@
 import {sectionsData} from "@/data";
 import {ResetIcon} from "@/icons";
 import {useSectionStore} from "@/store";
-import {CurrentSectionView} from "@/types";
+import {CurrentSectionView, SectionProps} from "@/types";
 
 interface SectionsButtonsProps {
   setSectionView: (switchToSection: CurrentSectionView) => void;
 }
 
 export const SectionsButtons = ({setSectionView}: SectionsButtonsProps) => {
-  const resetValue = [
-    {
-      id: "1",
-      title: "Project Title",
-      content: "# Project Title\nA brief description for this project and who is it for",
-    },
-  ];
+  const {setSectionsData, setCurrentSection, setInitialSectionsAndCustoms} = useSectionStore();
 
-  const {
-    setSectionsData,
-    setCurrentSection,
-    setInitialSectionsAndCustoms,
-    //  sections
-  } = useSectionStore();
-
-  const handleReset = () => {
-    setSectionsData(resetValue);
-    setCurrentSection(resetValue[0]);
-    setInitialSectionsAndCustoms(sectionsData);
+  const resetSection: SectionProps = {
+    id: "22",
+    title: "Project Title",
+    content: `
+# Project Title
+A brief description for this project and who is it for 
+`,
   };
 
-  // console.log(sections);
+  const handleReset = () => {
+    setSectionsData([resetSection]);
+    setCurrentSection(resetSection);
+    setInitialSectionsAndCustoms(sectionsData);
+  };
 
   return (
     <div className="flex gap-2 rounded-md border border-stone-100/20 p-3">

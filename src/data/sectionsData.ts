@@ -47,7 +47,7 @@ Takes two numbers and returns the sum.
     title: "Authors",
     content: `
 ## Authors
-- [@octokatherine](https://www.github.com/octokatherine)
+- [@itsJosephV](https://www.github.com/itsJosephV)
 `,
   },
   {

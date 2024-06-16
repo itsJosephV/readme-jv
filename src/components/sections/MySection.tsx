@@ -18,16 +18,23 @@ interface Props {
 export const MySection = ({section, isFocused, setFocusedSection, setIsSectionSelected}: Props) => {
   const nodeRef = useRef<React.ElementRef<"li"> | null>(null);
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: section.id});
-  const {setCurrentSection, currentSection, deleteSection, resetSection} = useSectionStore();
+  const {setCurrentSection, currentSection, deleteSection, initialSections, updateSection} =
+    useSectionStore();
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
 
-  const handleResetButton = () => {
+  const handleResetSection = () => {
     //TODO: ADD SOME VERIFICATION BEFORE RESETTING 👁️
-    resetSection(section.title, section.id);
+    const initialSectionContent = initialSections.find(
+      (sect) => sect.title === section.title,
+    )?.content;
+
+    if (initialSectionContent) {
+      updateSection(initialSectionContent);
+    }
   };
 
   const handleSectionClick = () => {
@@ -86,7 +93,7 @@ export const MySection = ({section, isFocused, setFocusedSection, setIsSectionSe
             className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
-              handleResetButton();
+              handleResetSection();
             }}
           >
             <ResetIcon />
