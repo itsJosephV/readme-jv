@@ -1,12 +1,11 @@
 import {CancelIcon, SearchIcon} from "@/icons";
 
-export const SearchInput = ({
-  query,
-  setQuery,
-}: {
+type InputProps = {
   query: string;
   setQuery: (query: string) => void;
-}) => {
+};
+
+export const SearchInput = ({query, setQuery}: InputProps) => {
   return (
     <div className="flex items-center gap-3.5 rounded-md border border-stone-700 bg-stone-800 px-4 py-2.5">
       <input

@@ -1,35 +1,38 @@
 import {useState} from "react";
-import CopyToClipboard from "react-copy-to-clipboard";
+
+import {ToolTip} from "../tooltip";
 
 import {CopiedIcon, CopyIcon, DownloadFile, PreviewIcon, RawIcon} from "@/icons";
 import {CurrentPreviewView} from "@/types";
 import {useSectionStore} from "@/store";
 import {cn, handleMDFormart} from "@/utils";
 
-export const PreviewButtons = ({
-  previewView,
-  setPreviewView,
-}: {
+type PreviewButtonsProps = {
   previewView: CurrentPreviewView;
   setPreviewView: (previewView: CurrentPreviewView) => void;
-}) => {
-  const [isCopied, setIsCopied] = useState(false);
+};
 
-  const handleIsCopied = () => {
-    setIsCopied(true);
-    setTimeout(() => {
-      setIsCopied(false);
-    }, 2000);
-  };
+export const PreviewButtons = ({previewView, setPreviewView}: PreviewButtonsProps) => {
+  const [isCopied, setIsCopied] = useState(false);
 
   const {sections} = useSectionStore();
 
   const rawMDText = handleMDFormart(sections) as string;
 
+  const handleMDCopy = () => {
+    setIsCopied(true);
+    navigator.clipboard.writeText(rawMDText);
+    const timeoutId = setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+
+    return () => clearTimeout(timeoutId);
+  };
+
   const isPreview = previewView === CurrentPreviewView.MD_PREVIEW;
   const isRaw = previewView === CurrentPreviewView.MD_RAW;
 
-  const handleDownloadMD = () => {
+  const handleMDDownload = () => {
     const blob = new Blob([rawMDText], {type: "text/markdown"});
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -45,50 +48,69 @@ export const PreviewButtons = ({
 
   return (
     <div className="flex gap-2">
-      <button
-        className="group rounded-md border border-stone-100/20 bg-stone-800 p-1.5 disabled:pointer-events-none"
-        disabled={isPreview}
-        onClick={handleMDPreview}
-      >
-        <PreviewIcon
-          className={cn("size-5 text-stone-400 transition-colors  group-hover:text-stone-300", {
-            "text-emerald-400": isPreview,
-          })}
-        />
-      </button>
-      <button
-        className="group rounded-md border border-stone-100/20 bg-stone-800 p-1.5 disabled:pointer-events-none "
-        disabled={isRaw}
-        onClick={handleRawPreview}
-      >
-        <RawIcon
-          className={cn("size-5 text-stone-400 transition-colors group-hover:text-stone-300", {
-            "text-emerald-400": isRaw,
-          })}
-        />
-      </button>
-      <CopyToClipboard text={rawMDText} onCopy={handleIsCopied}>
-        <button
-          className="group rounded-md border border-stone-100/20 bg-stone-800 p-1.5 disabled:pointer-events-none"
-          disabled={isCopied}
-        >
-          {isCopied ? (
-            <CopiedIcon className="size-5 text-emerald-400" />
-          ) : (
-            <CopyIcon className="size-5 text-stone-400 transition-colors group-hover:text-stone-300" />
-          )}
-        </button>
-      </CopyToClipboard>
-      <button
-        className="flex items-center gap-0.5 rounded-md bg-emerald-900 px-2.5 text-emerald-100"
-        data-tooltip-content={"Download markdown file"}
-        data-tooltip-id="my-tooltip"
-        data-tooltip-place="bottom-start"
-        onClick={handleDownloadMD}
-      >
-        <DownloadFile className="size-5" />
-        <span>.md</span>
-      </button>
+      <ToolTip>
+        <ToolTip.Trigger>
+          <button
+            className="group rounded-md border border-stone-100/20 bg-stone-800 p-1.5 disabled:pointer-events-none"
+            disabled={isPreview}
+            onClick={handleMDPreview}
+          >
+            <PreviewIcon
+              className={cn("size-5 text-stone-400 transition-colors  group-hover:text-stone-300", {
+                "text-emerald-400": isPreview,
+              })}
+            />
+          </button>
+        </ToolTip.Trigger>
+        <ToolTip.Content>Preview Markdown</ToolTip.Content>
+      </ToolTip>
+      <ToolTip>
+        <ToolTip.Trigger>
+          <button
+            className="group rounded-md border border-stone-100/20 bg-stone-800 p-1.5 disabled:pointer-events-none"
+            disabled={isRaw}
+            onClick={handleRawPreview}
+          >
+            <RawIcon
+              className={cn("size-5 text-stone-400 transition-colors group-hover:text-stone-300", {
+                "text-emerald-400": isRaw,
+              })}
+            />
+          </button>
+        </ToolTip.Trigger>
+        <ToolTip.Content>Raw Markdown</ToolTip.Content>
+      </ToolTip>
+      <ToolTip>
+        <ToolTip.Trigger>
+          <button
+            className="group rounded-md border border-stone-100/20 bg-stone-800 p-1.5 disabled:pointer-events-none"
+            disabled={isCopied}
+            onClick={handleMDCopy}
+          >
+            {isCopied ? (
+              <CopiedIcon className="size-5 text-emerald-400" />
+            ) : (
+              <CopyIcon className="size-5 text-stone-400 transition-colors group-hover:text-stone-300" />
+            )}
+          </button>
+        </ToolTip.Trigger>
+        <ToolTip.Content>Copy Raw to clipboard</ToolTip.Content>
+      </ToolTip>
+      <ToolTip>
+        <ToolTip.Trigger>
+          <button
+            className="flex items-center gap-0.5 rounded-md border border-emerald-100/20 bg-emerald-900 px-2.5 text-emerald-100 transition-colors hover:bg-emerald-800"
+            data-tooltip-content={"Download markdown file"}
+            data-tooltip-id="my-tooltip"
+            data-tooltip-place="bottom-start"
+            onClick={handleMDDownload}
+          >
+            <DownloadFile className="size-5" />
+            <span>.md</span>
+          </button>
+        </ToolTip.Trigger>
+        <ToolTip.Content align="end">Download Markdown</ToolTip.Content>
+      </ToolTip>
     </div>
   );
 };

@@ -3,10 +3,10 @@ import {ExtraProps} from "react-markdown";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {nightOwl} from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-interface CodeProps {
+type CodeProps = {
   className?: string;
   children: React.ReactNode;
-}
+};
 
 const Code = ({className, children, ...props}: CodeProps) => {
   const match = /language-(\w+)/.exec(className || "");

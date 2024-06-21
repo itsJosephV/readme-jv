@@ -14,7 +14,7 @@
 - [ ] Create sections for badges
 - [ ] Animations?
 - [ ] Responsiveness?
-- [ ] style (enhancement)
+- [ ] Sync Style and Colors
 - [ ] Light mode
 
 ## Tech Stack

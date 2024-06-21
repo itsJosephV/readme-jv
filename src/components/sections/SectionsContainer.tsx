@@ -2,8 +2,9 @@ import {SortableContext, verticalListSortingStrategy, arrayMove} from "@dnd-kit/
 import {DndContext, DragEndEvent, closestCenter} from "@dnd-kit/core";
 import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
 import {FormEvent, useMemo, useRef, useState} from "react";
+import {toast} from "sonner";
 
-import {Modal} from "../modal";
+import Modal from "../modal/Modal";
 
 import {OptionSection} from "./OptionSection";
 import {SearchInput} from "./SearchInput";
@@ -11,15 +12,15 @@ import {MySection} from "./MySection";
 
 import {CurrentSectionView, SectionProps} from "@/types";
 import {useSectionStore} from "@/store";
-import {BlackHoleIcon} from "@/icons/BlackHoleIcon";
 import useDebounce from "@/hooks/useDebounce";
 import useScrollPositions from "@/hooks/useScrollPositions";
+import {UfoIcon} from "@/icons";
 
-interface SectionBoxProps {
+type SectionBoxProps = {
   sectionView: CurrentSectionView;
   isSectionSelected: boolean;
   setIsSectionSelected: (isSectionSelected: boolean) => void;
-}
+};
 
 export const SectionsContainer = ({
   sectionView,
@@ -31,6 +32,7 @@ export const SectionsContainer = ({
 
   const [focusedSection, setFocusedSection] = useState<string | null>(null);
   const [query, setQuery] = useState<string>("");
+  const [open, setOpen] = useState(false);
   const debounceSearch = useDebounce(query);
 
   const {
@@ -55,7 +57,7 @@ export const SectionsContainer = ({
     setSectionsData(newOrder);
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     const inputValue = inputRef.current?.value;
@@ -72,14 +74,20 @@ This is your custom section
       custom: true,
     };
 
+    const toastMessage = `New [${inputValue}] Section Added`;
+
     setSectionsData([...sections, customSection]);
     setInitialSectionsAndCustoms([...initialSections, customSection]);
     setCurrentSection(customSection);
     setIsSectionSelected(true);
+    toast(toastMessage, {
+      className: "border border-emerald-700 bg-emerald-800 text-emerald-100",
+      icon: "🚀",
+    });
+    setOpen(false);
   };
 
   const filteredSections = useMemo(() => {
-    //console.log("running");
     return initialSections
       .filter((section) => !section.custom)
       .filter((section) => section.title.toLowerCase().includes(debounceSearch.toLowerCase()))
@@ -118,7 +126,7 @@ This is your custom section
       </DndContext>
     ) : (
       <div className="flex h-full flex-col items-center justify-center gap-3 text-stone-700">
-        <BlackHoleIcon className="size-28 " />
+        <UfoIcon className="size-28 " />
         <div className="text-center">
           <p>Your sections are gone!</p>
           <p>Start adding some {":)"}</p>
@@ -131,28 +139,44 @@ This is your custom section
           <SearchInput query={query} setQuery={setQuery} />
         </li>
         <li>
-          <Modal>
-            <Modal.Button className="w-full select-none rounded-md border border-stone-700 bg-stone-800 px-4 py-2.5 transition-colors hover:bg-stone-700">
-              Custom Section
-            </Modal.Button>
-            <Modal.Content title="Custom section">
-              <form className="mt-5 flex flex-col gap-4 text-stone-100" onSubmit={onSubmit}>
-                <label className="flex flex-col gap-1">
-                  Section Title
-                  <input ref={inputRef} placeholder="section title" type="text" />
-                </label>
-                <button className="border">Create</button>
+          <Modal open={open} onOpenChange={setOpen}>
+            <Modal.Trigger>
+              <button className="w-full select-none rounded-md border border-stone-700 bg-stone-800 px-4 py-2.5 transition-colors hover:bg-stone-700">
+                Custom Section
+              </button>
+            </Modal.Trigger>
+            <Modal.Content title="New Custom Section">
+              <form className="mt-5 flex flex-col gap-4 text-stone-100" onSubmit={handleSubmit}>
+                <input
+                  ref={inputRef}
+                  autoFocus
+                  className="rounded-md bg-stone-800 p-2.5 placeholder:text-stone-400"
+                  placeholder="Section Title"
+                  tabIndex={0}
+                  type="text"
+                />
+                <button className="rounded-md bg-emerald-700 py-2 tracking-wide text-emerald-100 transition-colors hover:bg-emerald-600">
+                  Add New Section
+                </button>
               </form>
             </Modal.Content>
           </Modal>
         </li>
-        {filteredSections.map((section) => (
-          <OptionSection
-            key={section.id}
-            item={section}
-            setIsSectionSelected={setIsSectionSelected}
-          />
-        ))}
+        {filteredSections.length > 0 ? (
+          filteredSections.map((section) => (
+            <OptionSection
+              key={section.id}
+              item={section}
+              setIsSectionSelected={setIsSectionSelected}
+            />
+          ))
+        ) : (
+          <li>
+            <div className="w-full rounded-md  bg-stone-900 px-4 py-3 text-center text-stone-500 transition-colors">
+              No sections found
+            </div>
+          </li>
+        )}
       </ul>
     ),
   };

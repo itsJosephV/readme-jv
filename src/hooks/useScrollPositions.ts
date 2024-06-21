@@ -2,11 +2,11 @@ import {useLayoutEffect, useState} from "react";
 
 import {CurrentSectionView} from "@/types";
 
-interface USPProps {
+type USPProps = {
   sectionView: CurrentSectionView;
   sectionBoxRef: React.RefObject<HTMLDivElement>;
   isSectionSelected: boolean;
-}
+};
 
 type ScrollPositions = {
   [key in CurrentSectionView]: number;

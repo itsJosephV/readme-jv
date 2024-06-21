@@ -3,7 +3,9 @@ import {RawMD} from "./RawMD";
 
 import {CurrentPreviewView} from "@/types";
 
-export const PreviewContainer = ({previewView}: {previewView: CurrentPreviewView}) => {
+type PreviewContainerProps = {previewView: CurrentPreviewView};
+
+export const PreviewContainer = ({previewView}: PreviewContainerProps) => {
   const currentPreview: Record<CurrentPreviewView, JSX.Element> = {
     [CurrentPreviewView.MD_PREVIEW]: <PreviewMarkdown />,
     [CurrentPreviewView.MD_RAW]: <RawMD />,

@@ -9,7 +9,6 @@ export const SectionEditor = () => {
 
   const isContentAvailable = currentSection.content !== "";
   const isSectionsNotEmpty = sections.length > 0;
-  const getDefaultContent = () => "\n<- Add a section to start editing ";
 
   const options: editor.IStandaloneEditorConstructionOptions = {
     minimap: {enabled: false},
@@ -21,15 +20,23 @@ export const SectionEditor = () => {
     automaticLayout: true,
   };
 
-  const value =
-    isContentAvailable || isSectionsNotEmpty ? currentSection.content : getDefaultContent();
+  const getDefaultContent = () => {
+    if (!isSectionsNotEmpty) {
+      return "\n👈 Add a section to start editing";
+    }
+    if (!isContentAvailable) {
+      return "\n👈 Select a section to start editing ";
+    }
+
+    return currentSection.content;
+  };
 
   return (
     <MonacoEditor
       className="h-full overflow-y-auto"
       options={options}
       theme="vs-dark"
-      value={value}
+      value={getDefaultContent()}
       onChange={(value: string | undefined) => updateSection(value || "")}
       defaultLanguage="markdown"
     />

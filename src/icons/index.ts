@@ -1,3 +1,4 @@
+export * from "./UfoIcon";
 export * from "./CancelIcon";
 export * from "./CopiedIcon";
 export * from "./CopyIcon";
