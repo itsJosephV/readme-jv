@@ -3,9 +3,9 @@ import {useState} from "react";
 import {ToolTip} from "../tooltip";
 
 import {CopiedIcon, CopyIcon, DownloadFile, PreviewIcon, RawIcon} from "@/icons";
-import {CurrentPreviewView} from "@/types";
 import {useSectionStore} from "@/store";
 import {cn, handleMDFormart} from "@/utils";
+import {CurrentPreviewView} from "@/enums";
 
 type PreviewButtonsProps = {
   previewView: CurrentPreviewView;

@@ -10,11 +10,12 @@ import {OptionSection} from "./OptionSection";
 import {SearchInput} from "./SearchInput";
 import {MySection} from "./MySection";
 
-import {CurrentSectionView, SectionProps} from "@/types";
 import {useSectionStore} from "@/store";
 import useDebounce from "@/hooks/useDebounce";
 import useScrollPositions from "@/hooks/useScrollPositions";
 import {UfoIcon} from "@/icons";
+import {CurrentSectionView} from "@/enums";
+import {SectionProps} from "@/types";
 
 type SectionBoxProps = {
   sectionView: CurrentSectionView;

@@ -1,7 +1,7 @@
 import {sectionsData} from "@/data";
+import {CurrentSectionView} from "@/enums";
 import {ResetIcon} from "@/icons";
 import {startingSection, useSectionStore} from "@/store";
-import {CurrentSectionView} from "@/types";
 
 type SectionsButtonsProps = {
   setSectionView: (switchToSection: CurrentSectionView) => void;

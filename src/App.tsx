@@ -1,13 +1,13 @@
 import Split, {SplitProps} from "react-split";
 import {useState} from "react";
 
-import {CurrentPreviewView, CurrentSectionView} from "./types";
 import {createGutterElement, handleSnapCenter} from "./utils";
 import {SectionEditor} from "./components/editor";
 import {PreviewContainer} from "./components/preview";
 import {PreviewButtons} from "./components/preview-buttons";
 import {SectionsContainer} from "./components/sections";
 import {SectionsButtons} from "./components/sections-buttons";
+import {CurrentPreviewView, CurrentSectionView} from "./enums";
 
 function App() {
   const [sizes, setSizes] = useState([50, 50]);

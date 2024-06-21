@@ -1,7 +1,7 @@
 import {PreviewMarkdown} from "./PreviewMarkdown";
 import {RawMD} from "./RawMD";
 
-import {CurrentPreviewView} from "@/types";
+import {CurrentPreviewView} from "@/enums";
 
 type PreviewContainerProps = {previewView: CurrentPreviewView};
 

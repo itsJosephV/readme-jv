@@ -1,16 +1,21 @@
-export interface SectionProps {
+type SectionProps = {
   id: string;
   title: string;
   content: string;
   custom?: boolean;
-}
+};
 
-export enum CurrentSectionView {
-  MY_SECTIONS = "MY-SECTIONS",
-  OPTIONS_SECTIONS = "OPTIONS-SECTIONS",
-}
+type SectionStoreMethods = {
+  setSectionsData: (newSectionsData: SectionProps[]) => void;
+  setCurrentSection: (newCurrentSection: SectionProps) => void;
+  setInitialSectionsAndCustoms: (newInitialSections: SectionProps[]) => void;
+  updateSection: (value: string) => void;
+};
 
-export enum CurrentPreviewView {
-  MD_PREVIEW = "MD_PREVIEW",
-  MD_RAW = "MD_RAW",
-}
+type SectionStoreProps = {
+  currentSection: SectionProps;
+  sections: SectionProps[];
+  initialSections: SectionProps[];
+} & SectionStoreMethods;
+
+export type {SectionStoreProps, SectionProps};

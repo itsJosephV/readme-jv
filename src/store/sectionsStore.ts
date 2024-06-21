@@ -2,17 +2,7 @@ import {create} from "zustand";
 import {persist} from "zustand/middleware";
 
 import {sectionsData} from "@/data";
-import {type SectionProps} from "@/types";
-
-type SectionsStore = {
-  currentSection: SectionProps;
-  sections: SectionProps[];
-  initialSections: SectionProps[];
-  setSectionsData: (newSectionsData: SectionProps[]) => void;
-  setCurrentSection: (newCurrentSection: SectionProps) => void;
-  setInitialSectionsAndCustoms: (newInitialSections: SectionProps[]) => void;
-  updateSection: (value: string) => void;
-};
+import {SectionProps, SectionStoreProps} from "@/types";
 
 export const startingSection: SectionProps = {
   id: "22",
@@ -23,7 +13,7 @@ A brief description for this project and who is it for
 `,
 };
 
-export const useSectionStore = create<SectionsStore>()(
+export const useSectionStore = create<SectionStoreProps>()(
   persist(
     (set) => ({
       sections: [startingSection],
