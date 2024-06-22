@@ -1,10 +1,10 @@
 import {sectionsData} from "@/data";
-import {CurrentSectionView} from "@/enums";
 import {ResetIcon} from "@/icons";
 import {startingSection, useSectionStore} from "@/store";
+import {type SectionTabs} from "@/types";
 
 type SectionsButtonsProps = {
-  setSectionView: (switchToSection: CurrentSectionView) => void;
+  setSectionView: (switchToSection: SectionTabs) => void;
 };
 
 export const SectionsButtons = ({setSectionView}: SectionsButtonsProps) => {
@@ -21,13 +21,13 @@ export const SectionsButtons = ({setSectionView}: SectionsButtonsProps) => {
       <div className="flex flex-1 gap-2">
         <button
           className="w-full rounded-md bg-stone-700 p-1 transition-colors hover:bg-stone-600"
-          onClick={() => setSectionView(CurrentSectionView.MY_SECTIONS)}
+          onClick={() => setSectionView("selected-sections")}
         >
           My Sections
         </button>
         <button
           className="w-full rounded-md bg-stone-700 p-1 transition-colors hover:bg-stone-600"
-          onClick={() => setSectionView(CurrentSectionView.OPTIONS_SECTIONS)}
+          onClick={() => setSectionView("option-sections")}
         >
           Add New
         </button>

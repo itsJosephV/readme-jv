@@ -14,11 +14,10 @@ import {useSectionStore} from "@/store";
 import useDebounce from "@/hooks/useDebounce";
 import useScrollPositions from "@/hooks/useScrollPositions";
 import {UfoIcon} from "@/icons";
-import {CurrentSectionView} from "@/enums";
-import {SectionProps} from "@/types";
+import {type SectionProps, SectionTabs} from "@/types";
 
 type SectionBoxProps = {
-  sectionView: CurrentSectionView;
+  sectionView: SectionTabs;
   isSectionSelected: boolean;
   setIsSectionSelected: (isSectionSelected: boolean) => void;
 };
@@ -103,8 +102,8 @@ This is your custom section
       });
   }, [initialSections, debounceSearch]);
 
-  const currentSection: Record<CurrentSectionView, JSX.Element> = {
-    [CurrentSectionView.MY_SECTIONS]: sections.length ? (
+  const currentSection: Record<SectionTabs, JSX.Element> = {
+    ["selected-sections"]: sections.length ? (
       <DndContext
         collisionDetection={closestCenter}
         modifiers={[restrictToVerticalAxis]}
@@ -134,7 +133,7 @@ This is your custom section
         </div>
       </div>
     ),
-    [CurrentSectionView.OPTIONS_SECTIONS]: (
+    ["option-sections"]: (
       <ul className="space-y-3 p-3">
         <li>
           <SearchInput query={query} setQuery={setQuery} />

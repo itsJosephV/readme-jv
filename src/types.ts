@@ -18,4 +18,7 @@ type SectionStoreProps = {
   initialSections: SectionProps[];
 } & SectionStoreMethods;
 
-export type {SectionStoreProps, SectionProps};
+type SectionTabs = "selected-sections" | "option-sections";
+type PreviewTabs = "markdown-view" | "raw-view";
+
+export type {SectionStoreProps, SectionProps, SectionTabs, PreviewTabs};

@@ -2,18 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   min-width: 0;
 }
-
 
 :root {
   --header-height: 62px
 }
 
 body {
-@apply bg-stone-950 text-stone-100
+@apply bg-stone-950 text-stone-100 antialiased
+
 }
 
 .min-h {
@@ -33,49 +32,26 @@ body {
   }
 }
 
+.split-panel {
+  position: relative;
+}
+
+.split-snapping-dot::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #404040;
+  transform: translateX(-50%);
+}
+
+.split-snapping-dot::after {
+  left: 50%;
+}
+
 #textarea-raw-code {
   background-color: #0d1117;
   color: #e6edf3;
 }
-
-/* MODAL ANIMATION */
-@keyframes dialog-overlay-show {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes dialog-overlay-hide {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes dialog-content-show {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes dialog-content-hide {
-  from {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.95);
-  }
-}
-/* END OF MODAL ANIMATION */

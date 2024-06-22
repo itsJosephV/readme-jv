@@ -2,7 +2,7 @@ import {create} from "zustand";
 import {persist} from "zustand/middleware";
 
 import {sectionsData} from "@/data";
-import {SectionProps, SectionStoreProps} from "@/types";
+import {type SectionProps, SectionStoreProps} from "@/types";
 
 export const startingSection: SectionProps = {
   id: "22",

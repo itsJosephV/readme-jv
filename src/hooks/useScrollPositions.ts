@@ -1,21 +1,21 @@
 import {useLayoutEffect, useState} from "react";
 
-import {CurrentSectionView} from "@/enums";
+import {type SectionTabs} from "@/types";
 
 type USPProps = {
-  sectionView: CurrentSectionView;
+  sectionView: SectionTabs;
   sectionBoxRef: React.RefObject<HTMLDivElement>;
   isSectionSelected: boolean;
 };
 
 type ScrollPositions = {
-  [key in CurrentSectionView]: number;
+  [key in SectionTabs]: number;
 };
 
 const useScrollPositions = ({sectionView, sectionBoxRef, isSectionSelected}: USPProps) => {
   const [scrollPositions, setScrollPositions] = useState<ScrollPositions>({
-    "MY-SECTIONS": 0,
-    "OPTIONS-SECTIONS": 0,
+    "selected-sections": 0,
+    "option-sections": 0,
   });
 
   useLayoutEffect(() => {

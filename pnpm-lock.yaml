@@ -71,6 +71,9 @@ dependencies:
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.1
+  tailwindcss-radix:
+    specifier: ^3.0.3
+    version: 3.0.3
   zustand:
     specifier: ^4.5.2
     version: 4.5.2(@types/react@18.2.51)(react@18.2.0)
@@ -4372,6 +4375,10 @@ packages:
     resolution: {integrity: sha512-vkYrLpIP+lgR0tQCG6AP7zZXCTLc1Lnv/CCRT3BqJ9CZ3ui2++GPaGb1x/ILsINIMSYqqvrpqjUFsMNLlW99EA==}
     dependencies:
       '@babel/runtime': 7.24.7
+    dev: false
+
+  /tailwindcss-radix@3.0.3:
+    resolution: {integrity: sha512-uueKWJIY98tU4Fip2FTL2eXBqX428e5HBwbu+8rqqJ9H3NuhkcAGS66wNHZjeix56f6nNBhkhMLpQeIrmVxH/w==}
     dev: false
 
   /tailwindcss@3.4.1:

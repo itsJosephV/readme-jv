@@ -7,37 +7,16 @@ import {PreviewContainer} from "./components/preview";
 import {PreviewButtons} from "./components/preview-buttons";
 import {SectionsContainer} from "./components/sections";
 import {SectionsButtons} from "./components/sections-buttons";
-import {CurrentPreviewView, CurrentSectionView} from "./enums";
+import {type PreviewTabs, SectionTabs} from "./types";
+
+const SNAP_TRESHOLD = 5;
+const SPLIT_SIZES = [50, 50];
 
 function App() {
-  const [sizes, setSizes] = useState([50, 50]);
-  const [sectionView, setSectionView] = useState<CurrentSectionView>(
-    CurrentSectionView.MY_SECTIONS,
-  );
-  const [previewView, setPreviewView] = useState<CurrentPreviewView>(CurrentPreviewView.MD_PREVIEW);
+  const [sizes, setSizes] = useState<number[]>(SPLIT_SIZES);
+  const [sectionView, setSectionView] = useState<SectionTabs>("selected-sections");
+  const [previewView, setPreviewView] = useState<PreviewTabs>("markdown-view");
   const [isSectionSelected, setIsSectionSelected] = useState<boolean>(false);
-
-  const SNAP_TRESHOLD = 5;
-
-  const dotSnapCss = `
-  .split-panel {
-    position: relative;
-  }
-
-  .split-snapping-dot::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #404040;
-    transform: translateX(-50%);
-  }
-
-  .split-snapping-dot::after {
-    left: 50%;
-  }`;
 
   const splitProps: SplitProps = {
     cursor: "col-resize",
@@ -57,7 +36,7 @@ function App() {
       <article className="grid h-full max-h-screen grid-rows-[auto,1fr]">
         <header className="flex items-center px-5 py-3.5 capitalize">
           <div className="flex-1 text-xl font-semibold">
-            <p>Readme-jv</p>
+            <h1>Readme-jv</h1>
           </div>
           <PreviewButtons previewView={previewView} setPreviewView={setPreviewView} />
         </header>
@@ -79,7 +58,6 @@ function App() {
           </section>
         </main>
       </article>
-      <style>{dotSnapCss}</style>
     </>
   );
 }

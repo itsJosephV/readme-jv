@@ -78,7 +78,7 @@ export const MySection = ({
          * in Chrome the scrollIntoView wont reach the bottom sometimes afer
          * a section has been selected
          */
-        // node.scrollIntoView({behavior: "smooth"});
+        // node.scrollIntoView({behavior: "smooth", block: "nearest"});
         // scrollIntoView(node, {behavior: "smooth", block: "nearest"});
       }
 

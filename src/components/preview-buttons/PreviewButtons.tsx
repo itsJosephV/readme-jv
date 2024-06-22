@@ -5,11 +5,11 @@ import {ToolTip} from "../tooltip";
 import {CopiedIcon, CopyIcon, DownloadFile, PreviewIcon, RawIcon} from "@/icons";
 import {useSectionStore} from "@/store";
 import {cn, handleMDFormart} from "@/utils";
-import {CurrentPreviewView} from "@/enums";
+import {type PreviewTabs} from "@/types";
 
 type PreviewButtonsProps = {
-  previewView: CurrentPreviewView;
-  setPreviewView: (previewView: CurrentPreviewView) => void;
+  previewView: PreviewTabs;
+  setPreviewView: (previewView: PreviewTabs) => void;
 };
 
 export const PreviewButtons = ({previewView, setPreviewView}: PreviewButtonsProps) => {
@@ -29,8 +29,8 @@ export const PreviewButtons = ({previewView, setPreviewView}: PreviewButtonsProp
     return () => clearTimeout(timeoutId);
   };
 
-  const isPreview = previewView === CurrentPreviewView.MD_PREVIEW;
-  const isRaw = previewView === CurrentPreviewView.MD_RAW;
+  const isPreview = previewView === "markdown-view";
+  const isRaw = previewView === "raw-view";
 
   const handleMDDownload = () => {
     const blob = new Blob([rawMDText], {type: "text/markdown"});
@@ -43,8 +43,8 @@ export const PreviewButtons = ({previewView, setPreviewView}: PreviewButtonsProp
     URL.revokeObjectURL(url);
   };
 
-  const handleMDPreview = () => setPreviewView(CurrentPreviewView.MD_PREVIEW);
-  const handleRawPreview = () => setPreviewView(CurrentPreviewView.MD_RAW);
+  const handleMDPreview = () => setPreviewView("markdown-view");
+  const handleRawPreview = () => setPreviewView("raw-view");
 
   return (
     <div className="flex gap-2">
