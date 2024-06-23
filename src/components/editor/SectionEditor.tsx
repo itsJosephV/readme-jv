@@ -5,9 +5,9 @@ import {editor} from "monaco-editor";
 import {useSectionStore} from "@/store";
 
 export const SectionEditor = () => {
-  const {currentSection, updateSection, sections} = useSectionStore();
+  const {currentSection, updateSection, sections, setCurrentSection} = useSectionStore();
 
-  const isContentAvailable = currentSection.content !== "";
+  const isSectionAvailable = sections.find((section) => section.id === currentSection.id);
   const isSectionsNotEmpty = sections.length > 0;
 
   const options: editor.IStandaloneEditorConstructionOptions = {
@@ -18,17 +18,34 @@ export const SectionEditor = () => {
     fontSize: 14,
     scrollBeyondLastLine: false,
     automaticLayout: true,
+    readOnly: !isSectionAvailable || !isSectionsNotEmpty,
+    readOnlyMessage: {value: "Try editing a section"},
+    fixedOverflowWidgets: true,
   };
 
   const getDefaultContent = () => {
     if (!isSectionsNotEmpty) {
-      return "\n👈 Add a section to start editing";
+      return `
+👈 Add a new section to start editing
+`;
     }
-    if (!isContentAvailable) {
-      return "\n👈 Select a section to start editing ";
+    if (!isSectionAvailable) {
+      return `
+👈 Select a new section to start editing
+`;
     }
 
     return currentSection.content;
+  };
+
+  const handleSectionUpdate = (content: string) => {
+    const updatedSectionX = {
+      ...currentSection,
+      content: content,
+    };
+
+    updateSection(updatedSectionX);
+    setCurrentSection(updatedSectionX);
   };
 
   return (
@@ -36,8 +53,8 @@ export const SectionEditor = () => {
       className="h-full overflow-y-auto"
       options={options}
       theme="vs-dark"
-      value={getDefaultContent()}
-      onChange={(value: string | undefined) => updateSection(value || "")}
+      value={currentSection.content === "" ? getDefaultContent() : currentSection.content}
+      onChange={(value: string | undefined) => handleSectionUpdate(value || "")}
       defaultLanguage="markdown"
     />
   );

@@ -9,7 +9,7 @@ type SectionStoreMethods = {
   setSectionsData: (newSectionsData: SectionProps[]) => void;
   setCurrentSection: (newCurrentSection: SectionProps) => void;
   setInitialSectionsAndCustoms: (newInitialSections: SectionProps[]) => void;
-  updateSection: (value: string) => void;
+  updateSection: (updatedSection: SectionProps) => void;
 };
 
 type SectionStoreProps = {

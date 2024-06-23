@@ -24,12 +24,12 @@ export const MySection = ({
   const nodeRef = useRef<React.ElementRef<"li"> | null>(null);
   const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: section.id});
   const {
-    setCurrentSection,
+    sections,
     currentSection,
     initialSections,
     updateSection,
     setSectionsData,
-    sections,
+    setCurrentSection,
   } = useSectionStore();
 
   const style = {
@@ -42,8 +42,14 @@ export const MySection = ({
       (sect) => sect.title === section.title,
     )?.content;
 
+    const revertedSection = {
+      ...section,
+      content: initialSectionContent || "",
+    };
+
     if (initialSectionContent) {
-      updateSection(initialSectionContent);
+      updateSection(revertedSection);
+      setCurrentSection(revertedSection);
     }
   };
 

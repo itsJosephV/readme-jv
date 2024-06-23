@@ -11,9 +11,11 @@ import {handleMDFormart} from "@/utils";
 export const PreviewMarkdown = () => {
   const {sections} = useSectionStore();
 
+  console.log(handleMDFormart(sections));
+
   return (
     <Markdown
-      className="markdown-body h-full overflow-y-auto p-5 prose-ol:list-decimal prose-ul:list-disc prose-ul:pl-0"
+      className="markdown-body h-full overflow-y-auto p-5 prose-ol:list-decimal prose-ul:list-disc"
       components={{
         code: ({className, children}) => {
           return <Code className={className}>{children}</Code>;

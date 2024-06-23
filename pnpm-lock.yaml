@@ -36,8 +36,8 @@ dependencies:
     specifier: ^2.1.1
     version: 2.1.1
   github-markdown-css:
-    specifier: ^5.5.1
-    version: 5.5.1
+    specifier: ^5.6.1
+    version: 5.6.1
   monaco-editor:
     specifier: ^0.49.0
     version: 0.49.0
@@ -2433,8 +2433,8 @@ packages:
       get-intrinsic: 1.2.1
     dev: true
 
-  /github-markdown-css@5.5.1:
-    resolution: {integrity: sha512-2osyhNgFt7DEHnGHbgIifWawAqlc68gjJiGwO1xNw/S48jivj8kVaocsVkyJqUi3fm7fdYIDi4C6yOtcqR/aEQ==}
+  /github-markdown-css@5.6.1:
+    resolution: {integrity: sha512-DItLFgHd+s7HQmk63YN4/TdvLeRqk1QP7pPKTTPrDTYoI5x7f/luJWSOZxesmuxBI2srHp8RDyoZd+9WF+WK8Q==}
     engines: {node: '>=10'}
     dev: false
 

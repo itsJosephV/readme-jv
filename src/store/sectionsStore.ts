@@ -23,12 +23,11 @@ export const useSectionStore = create<SectionStoreProps>()(
       setCurrentSection: (newCurrentSection) => set(() => ({currentSection: newCurrentSection})),
       setInitialSectionsAndCustoms: (newInitialSections) =>
         set(() => ({initialSections: newInitialSections})),
-      updateSection: (value) =>
+      updateSection: (updatedSection) =>
         set((state) => ({
           sections: state.sections.map((section) =>
-            section.id === state.currentSection.id ? {...section, content: value} : section,
+            section.id === updatedSection.id ? updatedSection : section,
           ),
-          currentSection: {...state.currentSection, content: value},
         })),
     }),
     {name: "sections-store"},
