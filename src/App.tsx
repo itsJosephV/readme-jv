@@ -42,7 +42,7 @@ function App() {
         </header>
         <main className="min-h flex gap-3 p-5 pt-0">
           <section className="flex w-full max-w-80 flex-col gap-3">
-            <SectionsButtons setSectionView={setSectionView} />
+            <SectionsButtons sectionView={sectionView} setSectionView={setSectionView} />
             <SectionsContainer
               isSectionSelected={isSectionSelected}
               sectionView={sectionView}

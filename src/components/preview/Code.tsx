@@ -22,7 +22,6 @@ const Code = ({className, children, ...props}: CodeProps) => {
       {String(children).replace(/\n$/, "")}
     </SyntaxHighlighter>
   ) : (
-    // </div>
     <code className={className} {...props}>
       {children}
     </code>

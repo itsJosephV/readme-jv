@@ -1,6 +1,7 @@
 import {useSortable} from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {useLayoutEffect, useRef} from "react";
+import {toast} from "sonner";
 
 import {type SectionProps} from "@/types";
 import {cn} from "@/utils";
@@ -32,6 +33,9 @@ export const MySection = ({
     setCurrentSection,
   } = useSectionStore();
 
+  const sectionHistory = useRef<string>(section.content);
+  const onCurrentSection = section.id === currentSection.id;
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -48,8 +52,12 @@ export const MySection = ({
     };
 
     if (initialSectionContent) {
+      sectionHistory.current = section.content;
       updateSection(revertedSection);
       setCurrentSection(revertedSection);
+      toast(`[${section.title}] was resetted`, {
+        action: <ActionButton />,
+      });
     }
   };
 
@@ -60,6 +68,17 @@ export const MySection = ({
     setSectionsData(newSections);
     //TODO: handle a click to the first section?
     setCurrentSection({id: "", title: "", content: ""});
+  };
+
+  const handleSectionUndo = () => {
+    const undoedSection = {
+      ...section,
+      content: sectionHistory.current,
+    };
+
+    updateSection(undoedSection);
+    setCurrentSection(undoedSection);
+    toast.dismiss();
   };
 
   const handleSectionClick = () => {
@@ -77,15 +96,10 @@ export const MySection = ({
         node.focus({preventScroll: false});
         node.click();
         /**
-         * scrollIntoView "smooth" option seems to be buggy in Safari
-         * afer pushing the scroll top beyond its limit and getting back
-         * to this component after toggling the section buttons will cause
-         * a small scroll from top with a random value (Not happening in Firefox nor Chrome)
-         * in Chrome the scrollIntoView wont reach the bottom sometimes afer
-         * a section has been selected
+         * scrollIntoView "smooth" option seems to be buggy across different broswers
+         * when the component mounts on toggle
          */
         // node.scrollIntoView({behavior: "smooth", block: "nearest"});
-        // scrollIntoView(node, {behavior: "smooth", block: "nearest"});
       }
 
       const timeoutId = setTimeout(() => {
@@ -96,6 +110,14 @@ export const MySection = ({
     }
   }, [currentSection.id, section.id, setIsSectionSelected]);
 
+  const ActionButton = () => {
+    return (
+      <button className="ml-auto rounded-sm bg-red-300 p-0.5 px-1.5" onClick={handleSectionUndo}>
+        Undo
+      </button>
+    );
+  };
+
   return (
     <li
       ref={(node) => {
@@ -103,9 +125,9 @@ export const MySection = ({
         nodeRef.current = node;
       }}
       className={cn(
-        "flex w-full scroll-my-3 rounded-md border border-stone-700 bg-stone-800 py-2.5 pl-2 pr-2.5 transition-colors hover:bg-stone-700 focus:ring-2 focus:ring-emerald-300/50",
+        "group flex w-full scroll-my-3 rounded-md border border-zinc-100/10 bg-zinc-800 py-2.5 pl-2 pr-2.5 transition-colors hover:bg-zinc-700 ",
         {
-          "bg-emerald-300/20": currentSection.id === section.id,
+          "ring-2 ring-emerald-400/50": onCurrentSection,
         },
       )}
       id={section.id}
@@ -116,31 +138,39 @@ export const MySection = ({
     >
       <div className="flex flex-1 items-center gap-2">
         <DragIcon
-          className="size-6 text-stone-500 transition-colors hover:text-stone-300"
+          className={cn("size-6 text-zinc-500 transition-colors hover:text-zinc-200", {
+            "text-emerald-400/50 hover:text-emerald-400": onCurrentSection,
+          })}
           {...attributes}
           {...listeners}
         />
-        <p className="flex-1 truncate pr-1.5">{section.title}</p>
+        <p
+          className={cn("flex-1 truncate pr-1.5", {
+            "text-emerald-400": onCurrentSection,
+          })}
+        >
+          {section.title}
+        </p>
       </div>
       {isFocused && (
         <div className="flex gap-2">
           <button
-            className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
+            className="cursor-pointer rounded-md bg-zinc-700 p-1 transition-colors group-hover:bg-zinc-600"
             onClick={(e) => {
               e.stopPropagation();
               handleResetSection();
             }}
           >
-            <ResetIcon />
+            <ResetIcon className="scale-x-[-1] text-emerald-400 hover:text-emerald-300" />
           </button>
           <button
-            className="cursor-pointer rounded-md bg-stone-600 p-1 transition-colors"
+            className="group cursor-pointer rounded-md bg-zinc-700 p-1 transition-colors group-hover:bg-zinc-600"
             onClick={(e) => {
               e.stopPropagation();
               handleDeleteSection();
             }}
           >
-            <TrashIcon />
+            <TrashIcon className="text-rose-400 transition-colors hover:text-rose-300" />
           </button>
         </div>
       )}

@@ -11,7 +11,7 @@ import {handleMDFormart} from "@/utils";
 export const PreviewMarkdown = () => {
   const {sections} = useSectionStore();
 
-  console.log(handleMDFormart(sections));
+  // console.log(handleMDFormart(sections));
 
   return (
     <Markdown

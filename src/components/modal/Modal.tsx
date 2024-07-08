@@ -38,15 +38,15 @@ Modal.Content = ({children, title, ...props}: ModalContentProps) => {
       <Dialog.Content
         {...props}
         className={cn(
-          "fixed left-1/2 top-1/2 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-md border border-stone-100/20 bg-stone-900 p-8 text-stone-900 shadow",
+          "fixed left-1/2 top-1/2 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-md border border-zinc-100/10 bg-zinc-900 p-8 shadow",
           "radix-state-[open]:animate-contentShow",
           "radix-state-[closed]:animate-contentHide",
         )}
       >
         <div className="flex items-center justify-between">
-          <Dialog.Title className="text-xl text-stone-100">{title}</Dialog.Title>
+          <Dialog.Title className="text-lg font-medium">{title}</Dialog.Title>
           <Dialog.Close>
-            <CancelIcon className="text-stone-400 transition-colors hover:text-stone-100" />
+            <CancelIcon className="text-zinc-400 transition-colors hover:text-inherit" />
           </Dialog.Close>
         </div>
         {children}

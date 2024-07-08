@@ -125,7 +125,7 @@ This is your custom section
         </ul>
       </DndContext>
     ) : (
-      <div className="flex h-full flex-col items-center justify-center gap-3 text-stone-700">
+      <div className="flex h-full flex-col items-center justify-center gap-3 text-zinc-700">
         <UfoIcon className="size-28 " />
         <div className="text-center">
           <p>Your sections are gone!</p>
@@ -141,21 +141,24 @@ This is your custom section
         <li>
           <Modal open={open} onOpenChange={setOpen}>
             <Modal.Trigger>
-              <button className="w-full select-none rounded-md border border-stone-700 bg-stone-800 px-4 py-2.5 transition-colors hover:bg-stone-700">
+              <button className="w-full select-none rounded-md border border-zinc-100/10 bg-zinc-800 px-4 py-2.5 transition-colors hover:bg-zinc-700">
                 Custom Section
               </button>
             </Modal.Trigger>
             <Modal.Content title="New Custom Section">
-              <form className="mt-5 flex flex-col gap-4 text-stone-100" onSubmit={handleSubmit}>
-                <input
-                  ref={inputRef}
-                  autoFocus
-                  className="rounded-md bg-stone-800 p-2.5 placeholder:text-stone-400"
-                  placeholder="Section Title"
-                  tabIndex={0}
-                  type="text"
-                />
-                <button className="rounded-md bg-emerald-700 py-2 tracking-wide text-emerald-100 transition-colors hover:bg-emerald-600">
+              <form className="mt-5 flex flex-col gap-4" onSubmit={handleSubmit}>
+                <label className="flex flex-col gap-1">
+                  <span className="text-zinc-400">Section title</span>
+                  <input
+                    ref={inputRef}
+                    autoFocus
+                    className="rounded-md border border-zinc-100/10 bg-zinc-800 p-2.5 placeholder:text-zinc-500"
+                    placeholder="e.g., Social links"
+                    tabIndex={0}
+                    type="text"
+                  />
+                </label>
+                <button className="rounded-md border border-emerald-100/50 bg-emerald-700 py-2 font-medium tracking-wide text-emerald-100 transition-colors hover:bg-emerald-600">
                   Add New Section
                 </button>
               </form>
@@ -172,8 +175,8 @@ This is your custom section
           ))
         ) : (
           <li>
-            <div className="w-full rounded-md  bg-stone-900 px-4 py-3 text-center text-stone-500 transition-colors">
-              No sections found
+            <div className="w-full rounded-md bg-zinc-800 px-4 py-3 text-center">
+              <p className="text-zinc-500">No sections found</p>
             </div>
           </li>
         )}
@@ -182,10 +185,7 @@ This is your custom section
   };
 
   return (
-    <div
-      ref={sectionBoxRef}
-      className="h-full overflow-y-auto rounded-md border border-stone-100/20"
-    >
+    <div ref={sectionBoxRef} className="h-full overflow-y-auto rounded-md bg-zinc-900">
       <div className="h-full">{currentSection[sectionView]}</div>
     </div>
   );
