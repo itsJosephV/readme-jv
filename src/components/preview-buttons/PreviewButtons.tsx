@@ -51,12 +51,12 @@ export const PreviewButtons = ({previewView, setPreviewView}: PreviewButtonsProp
       <ToolTip>
         <ToolTip.Trigger>
           <button
-            className="group rounded-md border border-stone-100/20 bg-stone-800 p-1.5 disabled:pointer-events-none"
+            className="group rounded-md border border-zinc-100/20 bg-zinc-800 p-1.5 disabled:pointer-events-none"
             disabled={isPreview}
             onClick={handleMDPreview}
           >
             <PreviewIcon
-              className={cn("size-5 text-stone-400 transition-colors  group-hover:text-stone-300", {
+              className={cn("size-5 text-zinc-400 transition-colors  group-hover:text-zinc-300", {
                 "text-emerald-400": isPreview,
               })}
             />
@@ -67,12 +67,12 @@ export const PreviewButtons = ({previewView, setPreviewView}: PreviewButtonsProp
       <ToolTip>
         <ToolTip.Trigger>
           <button
-            className="group rounded-md border border-stone-100/20 bg-stone-800 p-1.5 disabled:pointer-events-none"
+            className="group rounded-md border border-zinc-100/20 bg-zinc-800 p-1.5 disabled:pointer-events-none"
             disabled={isRaw}
             onClick={handleRawPreview}
           >
             <RawIcon
-              className={cn("size-5 text-stone-400 transition-colors group-hover:text-stone-300", {
+              className={cn("size-5 text-zinc-400 transition-colors group-hover:text-zinc-300", {
                 "text-emerald-400": isRaw,
               })}
             />
@@ -83,14 +83,14 @@ export const PreviewButtons = ({previewView, setPreviewView}: PreviewButtonsProp
       <ToolTip>
         <ToolTip.Trigger>
           <button
-            className="group rounded-md border border-stone-100/20 bg-stone-800 p-1.5 disabled:pointer-events-none"
+            className="group rounded-md border border-zinc-100/20 bg-zinc-800 p-1.5 disabled:pointer-events-none"
             disabled={isCopied}
             onClick={handleMDCopy}
           >
             {isCopied ? (
               <CopiedIcon className="size-5 text-emerald-400" />
             ) : (
-              <CopyIcon className="size-5 text-stone-400 transition-colors group-hover:text-stone-300" />
+              <CopyIcon className="size-5 text-zinc-400 transition-colors group-hover:text-zinc-300" />
             )}
           </button>
         </ToolTip.Trigger>

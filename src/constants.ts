@@ -1,0 +1,4 @@
+const SNAP_TRESHOLD = 5;
+const SPLIT_SIZES = [50, 50];
+
+export {SNAP_TRESHOLD, SPLIT_SIZES};

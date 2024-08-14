@@ -55,7 +55,7 @@ export const MySection = ({
       sectionHistory.current = section.content;
       updateSection(revertedSection);
       setCurrentSection(revertedSection);
-      toast(`[${section.title}] was resetted`, {
+      toast.info(`[${section.title}] was resetted`, {
         action: <ActionButton />,
       });
     }
@@ -68,6 +68,7 @@ export const MySection = ({
     setSectionsData(newSections);
     //TODO: handle a click to the first section?
     setCurrentSection({id: "", title: "", content: ""});
+    toast.info(`[${section.title}] section deleted`);
   };
 
   const handleSectionUndo = () => {
@@ -112,7 +113,10 @@ export const MySection = ({
 
   const ActionButton = () => {
     return (
-      <button className="ml-auto rounded-sm bg-red-300 p-0.5 px-1.5" onClick={handleSectionUndo}>
+      <button
+        className="ml-auto rounded-sm bg-[rgb(11,102,195)] p-0.5 px-1.5 font-medium text-blue-50 transition-all hover:bg-[rgba(11,102,195,0.9)]"
+        onClick={handleSectionUndo}
+      >
         Undo
       </button>
     );

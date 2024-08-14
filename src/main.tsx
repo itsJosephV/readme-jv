@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <>
     <ToolTip.Provider>
       <App />
-      <Toaster />
+      <Toaster richColors theme="light" visibleToasts={1} />
     </ToolTip.Provider>
   </>,
 );

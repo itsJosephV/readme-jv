@@ -24,10 +24,7 @@ export const OptionSection = ({item, setIsSectionSelected}: OptionSectionProps) 
     setSectionsData([...sections, newSectionWithNewId]);
     setCurrentSection(newSectionWithNewId);
     setIsSectionSelected(true);
-    toast(toastMessage, {
-      className: "border border-emerald-700 bg-emerald-800 text-emerald-100",
-      icon: "🚀",
-    });
+    toast.success(toastMessage);
   };
 
   const sectionAmount = useMemo(() => {

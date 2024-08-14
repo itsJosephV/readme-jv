@@ -1,3 +1,5 @@
+import type {PreviewTabs, SectionTabs} from "./types";
+
 import Split, {SplitProps} from "react-split";
 import {useState} from "react";
 
@@ -7,10 +9,7 @@ import {PreviewContainer} from "./components/preview";
 import {PreviewButtons} from "./components/preview-buttons";
 import {SectionsContainer} from "./components/sections";
 import {SectionsButtons} from "./components/sections-buttons";
-import {type PreviewTabs, SectionTabs} from "./types";
-
-const SNAP_TRESHOLD = 5;
-const SPLIT_SIZES = [50, 50];
+import {SNAP_TRESHOLD, SPLIT_SIZES} from "./constants";
 
 function App() {
   const [sizes, setSizes] = useState<number[]>(SPLIT_SIZES);
@@ -36,7 +35,7 @@ function App() {
       <article className="grid h-full max-h-screen grid-rows-[auto,1fr]">
         <header className="flex items-center px-5 py-3.5 capitalize">
           <div className="flex-1 text-xl font-semibold">
-            <h1>Readme-jv</h1>
+            <h1>Readme.jv</h1>
           </div>
           <PreviewButtons previewView={previewView} setPreviewView={setPreviewView} />
         </header>

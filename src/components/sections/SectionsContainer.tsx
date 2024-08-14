@@ -80,10 +80,7 @@ This is your custom section
     setInitialSectionsAndCustoms([...initialSections, customSection]);
     setCurrentSection(customSection);
     setIsSectionSelected(true);
-    toast(toastMessage, {
-      className: "border border-emerald-700 bg-emerald-800 text-emerald-100",
-      icon: "🚀",
-    });
+    toast.success(toastMessage);
     setOpen(false);
   };
 

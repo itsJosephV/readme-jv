@@ -17,13 +17,13 @@ export const SectionsButtons = ({setSectionView, sectionView}: SectionsButtonsPr
   const {setSectionsData, setCurrentSection, setInitialSectionsAndCustoms} = useSectionStore();
 
   const handleReset = () => {
-    const resetConfirm = confirm("All your sections will be removed, do you want to continue? ");
+    const resetConfirm = confirm("All your sections will be removed, continue?");
 
     if (resetConfirm) {
       setSectionsData([startingSection]);
       setCurrentSection(startingSection);
       setInitialSectionsAndCustoms(sectionsData);
-      toast("Your sections were removed");
+      toast.info("Sections resetted");
     }
   };
 

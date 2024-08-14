@@ -26,12 +26,12 @@ ToolTip.Content = ({children, ...props}: ToolTipContentProps) => {
           "radix-side-bottom:animate-slide-up-fade",
           "radix-side-left:animate-slide-right-fade",
           "inline-flex items-center rounded-md px-4 py-2.5",
-          "select-none rounded-[4px] bg-white px-[15px] py-[10px] text-[15px] leading-none text-violet-400 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity]",
+          "select-none rounded-[4px] bg-zinc-700 px-[15px] py-[10px] text-[15px] leading-none text-zinc-100 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity]",
         )}
         sideOffset={5}
       >
         {children}
-        <TooltipR.Arrow className="fill-white" />
+        <TooltipR.Arrow className="fill-zinc-700" />
       </TooltipR.Content>
     </TooltipR.Portal>
   );
