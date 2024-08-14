@@ -6,6 +6,7 @@ import {CopiedIcon, CopyIcon, DownloadFile, PreviewIcon, RawIcon} from "@/icons"
 import {useSectionStore} from "@/store";
 import {cn, handleMDFormart} from "@/utils";
 import {type PreviewTabs} from "@/types";
+import {GitHubIcon} from "@/icons/GitHubIcon";
 
 type PreviewButtonsProps = {
   previewView: PreviewTabs;
@@ -47,7 +48,7 @@ export const PreviewButtons = ({previewView, setPreviewView}: PreviewButtonsProp
   const handleRawPreview = () => setPreviewView("raw-view");
 
   return (
-    <div className="flex gap-2">
+    <div className="flex items-center gap-2">
       <ToolTip>
         <ToolTip.Trigger>
           <button
@@ -99,18 +100,25 @@ export const PreviewButtons = ({previewView, setPreviewView}: PreviewButtonsProp
       <ToolTip>
         <ToolTip.Trigger>
           <button
-            className="flex items-center gap-0.5 rounded-md border border-emerald-100/20 bg-emerald-900 px-2.5 text-emerald-100 transition-colors hover:bg-emerald-800"
+            className="rounded-md border border-emerald-100/20 bg-emerald-900 p-1.5 text-emerald-100 transition-colors hover:bg-emerald-800"
             data-tooltip-content={"Download markdown file"}
             data-tooltip-id="my-tooltip"
             data-tooltip-place="bottom-start"
             onClick={handleMDDownload}
           >
             <DownloadFile className="size-5" />
-            <span>.md</span>
           </button>
         </ToolTip.Trigger>
         <ToolTip.Content align="end">Download Markdown</ToolTip.Content>
       </ToolTip>
+      <a
+        className="rounded-md border border-violet-100/20 bg-violet-900 p-1.5 text-violet-100 transition-colors hover:bg-violet-800"
+        href="https://github.com/itsJosephV/readme-jv"
+        rel="noopener"
+        target="_blank"
+      >
+        <GitHubIcon className="size-5" />
+      </a>
     </div>
   );
 };

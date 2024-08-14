@@ -1,6 +1,6 @@
-## PENDING TODOS
+# PENDING TODOS
 
-- [ ] Improve sections content
+- [x] Improve sections content
 - [x] Custom section option
 - [x] Search component
 - [ ] Turn Logo into a trigger for a popup with author info, etc
@@ -10,7 +10,7 @@
 - [ ] Solve DnDKit style (the element goes behind on drag)
 - [ ] Match code syntax-hightlight between monaco and markdown
 - [x] Get better icons
-- [ ] Toast (Sonner)
+- [x] Toast (Sonner)
 - [ ] Create sections for badges
 - [ ] Animations?
 - [ ] Responsiveness?
@@ -19,4 +19,4 @@
 
 ## Tech Stack
 
-**Client:** React, Zustand, Tailwind, Typescript
+**Client:** React, Zustand, Tailwind, Typescript, RadixUI (Primitives)

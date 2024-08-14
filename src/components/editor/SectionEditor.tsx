@@ -31,7 +31,7 @@ export const SectionEditor = () => {
     }
     if (!isSectionAvailable) {
       return `
-👈 Select a new section to start editing
+👈 Select or add a new section to start editing
 `;
     }
 
