@@ -23,7 +23,9 @@ export const MySection = ({
   setIsSectionSelected,
 }: MySectionsProps) => {
   const nodeRef = useRef<React.ElementRef<"li"> | null>(null);
-  const {attributes, listeners, setNodeRef, transform, transition} = useSortable({id: section.id});
+  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({
+    id: section.id,
+  });
   const {
     sections,
     currentSection,
@@ -129,7 +131,7 @@ export const MySection = ({
         nodeRef.current = node;
       }}
       className={cn(
-        "group flex w-full scroll-my-3 rounded-md border border-zinc-100/10 bg-zinc-800 py-2.5 pl-2 pr-2.5 transition-colors hover:bg-zinc-700 ",
+        "group flex w-full scroll-my-3 rounded-md border border-zinc-100/10 bg-zinc-800 py-2.5 pl-2 pr-2.5 transition-colors hover:bg-zinc-700",
         {
           "ring-2 ring-emerald-400/50": onCurrentSection,
         },
@@ -142,8 +144,9 @@ export const MySection = ({
     >
       <div className="flex flex-1 items-center gap-2">
         <DragIcon
-          className={cn("size-6 text-zinc-500 transition-colors hover:text-zinc-200", {
+          className={cn("size-6 cursor-grab text-zinc-500 transition-colors hover:text-zinc-200", {
             "text-emerald-400/50 hover:text-emerald-400": onCurrentSection,
+            "cursor-grabbing": isDragging,
           })}
           {...attributes}
           {...listeners}
